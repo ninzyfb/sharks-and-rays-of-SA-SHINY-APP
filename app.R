@@ -15,6 +15,7 @@ library(dplyr)
 library(DT)
 library(htmlwidgets)
 library(leaflegend)
+library(readxl)
 #library(shinyalert)
 
 ##################### IUCN COLORS
@@ -162,6 +163,18 @@ lifehistory = read.csv(list.files(pattern = "lifehistory_parameters.csv",recursi
 contours = readRDS(list.files(pattern = "contours.RDS",recursive = TRUE))
 #####################  DATA POINTS PER HIGH RES GRID CELL
 
+
+##################### list of species per map as well as their most recent sighing
+compiled_species_list = readRDS(list.files(pattern = "compiled-species_list.RDS",recursive = TRUE,full.names = TRUE))
+##################### list of species per map as well as their most recent sighing
+
+##################### list of data providers and institutions
+providers = read_xlsx(list.files(pattern = "data_providers_updated",recursive=TRUE,  full.names=TRUE),sheet = 1)
+providers = unique(providers)
+institutions = read_xlsx(list.files(pattern = "data_providers_updated",recursive=TRUE,  full.names=TRUE),sheet = 2)
+institutions = unique(institutions)
+##################### list of data providers and institutions
+
 #####################  DEFINING THE UI (USER INTERFACE)
 # Define UI for application 
 ui <- fluidPage(
@@ -201,10 +214,28 @@ ui <- fluidPage(
                                  h1("Data"),
                                  p("A wide variety of data collection methods can be used to gather spatial information on sharks and rays. Any information which is accompanied by a date, species identification and GPS coordinates can be inputed here provided it comes from a verified source."),
                                  h1("Data Privacy and Data sharing"),
-                                 p("Sharing hard-earned datasets is often a daunting prospect. It is important to know that this app does not allow data downloads of any kind nor does it provide storage of datasets. The aim is to provide a platform designed exclusively for visualization and information-sharing purposes."),
+                                 p("Sharing hard-earned datasets is often a daunting prospect. It is important to know that this app does not allow original dataset downloads. This platform is designed exclusively for visualization of datasets provided."),
                                  h1("Data resolution"),
-                                 p("This app allows collaborators to remain in control of the resolution at which they wish to display their spatial information. Some datasets may be more sensitive than others but even coarser scales can still contribute valuable insights to the collective research community. Please see the species spatial information tab to visualise examples of this.")
-                                 
+                                 p("This app allows collaborators to remain in control of the resolution at which they wish to display their spatial information. Some datasets may be more sensitive than others but even coarser scales can still contribute valuable insights to the distribution range of a species. Please see the species spatial information tab to see how data is displayed."),
+                                 h1("Data sources"),
+                                 h2("IUCN ranges"),
+                                 p("The IUCN provides a distribution map for each species which displays their range by drawing a polygon around all known occurrences.
+                                 This range is formally described as the Extent of Occurrence (EOO). An EOO is 
+                                 the area contained within the shortest continuous imaginary boundary which can be drawn to encompass all the known,
+                                   inferred or projected sites of present occurrence of a taxon, excluding cases of vagrancy.
+                                   These can all be downloaded from their website. Their mapping standard are available here: https://www.iucnredlist.org/resources/mappingstandards"),
+                                 a("IUCN. 2021. The IUCN Red List of Threatened Species. Version 2021-2.",href ="https://www.iucnredlist.org"),
+                                 h2("Species Distribution Models (SDMs)"),
+                                 p("The following published paper describes the methods used to produce the species distribution models, these are all available upon request, please contact nina-fb@outlook.com"),
+                                 a("Faure-Beaulieu N.,(2023). A systematic conservation plan identifying critical areas for improved chondrichthyan protection in South Africa. Biological Conservation, 284, 110163. https://doi.org/10.1016/j.biocon.2023.110163",href ="https://doi.org/10.1016/j.biocon.2023.110163"),
+                                 h2("Species illustrations"),
+                                 p("All illustrations were kindly provided by Ann Hecht"),
+                                 h2("Life-history information"),
+                                 a("Cliff, G. and Olbers, J.M. (Eds). 2022. Species profiles of South African sharks, rays and chimaeras. Volume 1: Threatened and Endemic Species. WILDTRUST Special Publication 2, Durban, South Africa. 556pp.",href ="https://sharksunderattackcampaign.co.za/wp-content/uploads/2023/03/2023_01_17_WILDOCEANS-endemic-and-threatened-sharks-species-reports.pdf"),
+                                 h2("Occurrence data"),
+                                 p("Below is a table of all datasets, data-owners and institutions who have contributed data to the site. If you have a dataset you would like to contribute please contact nina-fb@outlook.com"),
+                                 uiOutput("Providers"),
+                                 uiOutput("Institutions")
                           )
                         ))),
     
@@ -331,8 +362,8 @@ ui <- fluidPage(
                column(12,
                       h4(""),
                       HTML("<h4><b4>Sources of information:</b></h4>"),
-                      HTML("<p>Species list:<p>"),
-                      a("Cliff, G. 2022. South African Shark and Ray Species Database. WILDTRUST, Shark Attack Campaign, Link. Accessed on 18/10/2023.",href ="http://sharksunderattackcampaign.co.za/resources/"),
+                      HTML("<p>Species life-history information:<p>"),
+                      a("Cliff, G. and Olbers, J.M. (Eds). 2022. Species profiles of South African sharks, rays and chimaeras. Volume 1: Threatened and Endemic Species. WILDTRUST Special Publication 2, Durban, South Africa. 556pp.",href ="https://sharksunderattackcampaign.co.za/wp-content/uploads/2023/03/2023_01_17_WILDOCEANS-endemic-and-threatened-sharks-species-reports.pdf"),
                       HTML("<p>Species Distribution Models:<p>"),
                       a("Faure-Beaulieu N.,(2023). A systematic conservation plan identifying critical areas for improved chondrichthyan protection in South Africa. Biological Conservation, 284, 110163. https://doi.org/10.1016/j.biocon.2023.110163",href ="https://doi.org/10.1016/j.biocon.2023.110163"),
                       HTML("<p>IUCN ranges:<p>"),
@@ -346,8 +377,10 @@ ui <- fluidPage(
              fluidRow(
                column(12,
                       h4(""),
-                      HTML("<h4>Use the dropdown below to get a list of species per Marine Protected Area.<br><br>The list is built by using three different sources of information to assess the presence of a species within the MPA:<br>1. Species Distribution Model Ranges<br>2.IUCN Red List Ranges<br>3.True occurrence records from verified research sources (row highlighted in green)
-                             <br><br><b>IMPORTANT:</b> This does not represent a complete and comprehensive list of species for an MPA, but is rather meant to show the most recent (or provided) sighting information in a any particular MPA</h4>")
+                      HTML("<h4>Use the dropdown below to get a list of species per Marine Protected Area. Alternatively, scroll down to get a list of MPAs per species.
+                      <br><br>The list is built by using <b>three</b> different sources of information to assess the presence of a species within the MPA:<br>1. Species Distribution Models<br>2. IUCN Red List Ranges<br>3. True occurrence records from verified research sources
+                      <br><br> Rows highlighted in green are species with confirmed presences in the MPA. The most recent sighting as well as data source is provided
+                      <br><br><b>IMPORTANT:</b> This does not represent a complete and comprehensive list of species for an MPA, but is rather meant to show the most recent (or provided) sighting information in a any particular MPA</h4>")
                       
                )),
              
@@ -360,32 +393,27 @@ ui <- fluidPage(
              
              fluidRow( # row 2
                column(3, style='padding-left:10px; padding-right:10px; padding-top:10px; padding-bottom:10px',
-                      #This is the mpa mpa
+                      #This is the mpa
                       leafletOutput("mpa_single2")),
                column(9,DT::dataTableOutput("species_permpa")),
                style = "margin-bottom: 20px;" 
                
              ),
-             fluidRow(
-               column(3,DT::dataTableOutput("species_permpasummary")),
-               column(9,
-                      wellPanel(
-                        class = "custom-well",
-                        div(style = "background-color: rgba(173,216,230,0.7); padding: 5px;",
-                            HTML("<h4>On the left is a summary of the total number of shark and ray species by data type.<br> Below are bar plots shwoing number of species per IUCN red list status or endemic status per data type</h4>")))
-               )),
-             fluidRow(
-               column(12, plotOutput("species_permpa_barchart1"))
-             ),
-             fluidRow(
-               column(12, plotOutput("species_permpa_barchart2"))
-             ),
+             
+             fluidRow( # row 3
+               column(3,# list of species
+                      selectInput("select_a_species",
+                                  "Select a species:",
+                                  c(sort(unique(compiled_species_list$`Scientific name`))))),
+               column(9,DT::dataTableOutput("mpas_perspecies")),
+               style = "margin-bottom: 20px;"),
+             
              fluidRow(
                column(12,
                       h4(""),
                       HTML("<h4><b4>Sources of information:</b></h4>"),
                       HTML("<p>Species Occurence data:<p>"),
-                      HTML("Currently only BRUV and ACOUSTIC TAGGING data is included as the app is being piloted"),
+                      HTML("Please see About (Data) on the home page for a list of data providers"),
                       HTML("<p>Species Distribution Models:<p>"),
                       a("Faure-Beaulieu N.,(2023). A systematic conservation plan identifying critical areas for improved chondrichthyan protection in South Africa. Biological Conservation, 284, 110163. https://doi.org/10.1016/j.biocon.2023.110163",href ="https://doi.org/10.1016/j.biocon.2023.110163"),
                       HTML("<p>IUCN ranges:<p>"),
@@ -409,7 +437,7 @@ ui <- fluidPage(
                       
                       column(2, # Adjust the column width as needed
                              # Text
-                             HTML("<h4><b>West/East extents<br>(from data)</b></h4>"),
+                             HTML("<h4><b>West/East extents<br>(from occurrences)</b></h4>"),
                              # Image
                              div(img(src = "boundary_cross.png"))),
                       column(10,leafletOutput("rasters_sa", width = "80%", height = "50vh"),
@@ -433,7 +461,7 @@ ui <- fluidPage(
                       HTML("<p><b>Shark and Ray Illustrations:</b><p>"),
                       HTML("All illustrations were kindly provided by Ann Hecht"),
                       HTML("<p><b>Species Occurence data:</b><p>"),
-                      HTML("Currently only BRUV and ACOUSTIC TAGGING data is included as the app is being piloted"),
+                      HTML("Please see About (Data) on the home page for a list of data providers"),
                       HTML("<p><b>Species Distribution Models:</b><p>"),
                       a("Faure-Beaulieu N.,(2023). A systematic conservation plan identifying critical areas for improved chondrichthyan protection in South Africa. Biological Conservation, 284, 110163. https://doi.org/10.1016/j.biocon.2023.110163",href ="https://doi.org/10.1016/j.biocon.2023.110163"),
                       HTML("<p><b>IUCN ranges:</b><p>"),
@@ -455,6 +483,24 @@ server <- function(input, output) {
   
   #shinyalert("Hello! Please read:", "Please note that this app is in development. It will be live during South Africa's 2023 Shark and Ray Symposium to allow delegates to test it. The server used to host it has a maximum free allowance of 25h per month, once that is exceeded the app will no longer be online so please close the app from your browser once you are finished :)", type = "info")
   
+  # HOME TAB
+  output$Providers <-  renderUI({
+    
+ htmltools_value(flextable(providers)%>%
+                   merge_v(j=c("Data type"))%>%
+                   autofit()%>%
+                   bg(i = ~`Data type`=="Acoustic tagging",bg = "thistle1")%>%
+                   bg(i = ~`Data type`=="Linefishing (rod and reel)",bg = "snow")%>%
+                   bg(i = ~`Data type`=="Remote Underwater Video (RUV)",bg = "wheat")%>%
+                   bg(i = ~`Data type`=="Underwater Visual Survey (SCUBA or Freedive)",bg = "linen")%>%
+                   bg(i = ~`Data type`=="Baited Remote Underwater Video (BRUV)",bg = "beige")%>%
+                   border_inner_h()
+                 )
+    
+    })
+  output$Institutions <-  renderUI({htmltools_value(flextable(institutions)%>%
+                                                      border_inner_h()%>%
+                                                      autofit())})
   
   # FIRST TAB
   output$mpas_sa <- renderLeaflet({
@@ -582,139 +628,46 @@ server <- function(input, output) {
   })
   
   # THIRD TAB
-  # summary of species per mpa
-  output$species_permpasummary <- DT::renderDataTable({
-    temp = species_overlapdata  %>%
-      filter(CUR_NME == input$selectmpa2)%>% 
-      dplyr::select(-iucn) %>%
-      dplyr::select(-sdm)%>%
-      dplyr::select(-range_in_area) %>%
-      dplyr::select(-speciesrange) %>%
-      pivot_wider(values_from = perc_in_area,
-                  names_from = type)
-    
-    # only remove if NA in both
-    temp = temp %>%
-      group_by(CUR_NME,SPECIES_SCIENTIFIC,Species_common,STATUS,ENDEMIC.STATUS,group)%>%
-      summarize(across(starts_with("iucn"),~na.omit(.)[1]),
-                across(starts_with("sdm"),~na.omit(.)[1]))
-    
-    temp = ungroup(temp)
-    temp = temp %>%
-      mutate(SPECIES_SCIENTIFIC = str_to_sentence(SPECIES_SCIENTIFIC))%>%
-      rename("Scientific name" = SPECIES_SCIENTIFIC)%>%
-      rename("Common name" = Species_common)%>%
-      rename("IUCN status" = STATUS)%>%
-      rename("Endemic status" = ENDEMIC.STATUS)%>%
-      rename("Group" = group)%>%
-      dplyr::select(-CUR_NME)%>%
-      filter(!(iucn == 0 & sdm == 0)) %>%
-      mutate(iucn = ifelse(iucn>0, "Yes","No"))%>%
-      mutate(sdm = ifelse(sdm>0, "Yes","No")) %>%
-      mutate(sdm = ifelse(is.na(sdm),"No model",sdm))
-    
-    # add in most recent sightings AFTER filtering sightings by MPA also
-    mostrecent_sighting_temp = mostrecent_sighting %>%
-      filter(CUR_NME== input$selectmpa2)
-    mostrecent_sighting_temp$CUR_NME = NULL
-    mostrecent_sighting_temp$GENUS = NULL
-    mostrecent_sighting_temp$SPECIES = NULL
-    
-    # clean up column names
-    colnames(mostrecent_sighting_temp) = str_to_sentence(colnames(mostrecent_sighting_temp))
-    
-    # join to species list
-    temp = left_join(temp,mostrecent_sighting_temp)
-    
-    test1 = temp %>%
-      group_by(Group,iucn) %>%
-      summarise(n())%>%
-      filter(iucn == "Yes")%>%
-      ungroup()
-    test1$iucn = test1$`n()`
-    test1$`n()` = NULL
-    test2 = temp %>%
-      group_by(Group,sdm) %>%
-      summarise(n())%>%
-      filter(sdm == "Yes")%>%
-      ungroup()
-    test2$sdm = test2$`n()`
-    test2$`n()` = NULL
-    test3 = temp %>%
-      group_by(Group,Datatype) %>%
-      summarise(count = n())%>%
-      filter(!is.na(Datatype))%>%
-      group_by(Group)%>%
-      summarise(sum(count))
-    test3$record = test3$`sum(count)`
-    test3$`sum(count)` = NULL
-    all = left_join(test1,test2)
-    all = left_join(all,test3)
-    
-    datatable(all,rownames = FALSE,options = list(searching = FALSE,autoWidth=TRUE, lengthChange = FALSE,info=FALSE,paging=FALSE))
-    
-  })
-  
-  
-  # MPA overview info
+  # SPECIES PER MPA
   output$species_permpa <- DT::renderDataTable({
     
-    temp = species_overlapdata  %>%
-      filter(CUR_NME == input$selectmpa2)%>% 
-      dplyr::select(-iucn) %>%
-      dplyr::select(-sdm)%>%
-      dplyr::select(-range_in_area) %>%
-      dplyr::select(-speciesrange) %>%
-      #mutate(perc_in_area = round(100*perc_in_area,2))%>%
-      pivot_wider(values_from = perc_in_area,
-                  names_from = type)
+    temp = compiled_species_list  %>%
+      filter(CUR_NME == input$selectmpa2)
     
-    # only remove if NA in both
-    temp = temp %>%
-      group_by(CUR_NME,SPECIES_SCIENTIFIC,Species_common,STATUS,ENDEMIC.STATUS,group)%>%
-      summarize(across(starts_with("iucn"),~na.omit(.)[1]),
-                across(starts_with("sdm"),~na.omit(.)[1]))
-    
-    temp = ungroup(temp)
-    temp = temp %>%
-      mutate(SPECIES_SCIENTIFIC = str_to_sentence(SPECIES_SCIENTIFIC))%>%
-      rename("Scientific name" = SPECIES_SCIENTIFIC)%>%
-      rename("Common name" = Species_common)%>%
-      rename("IUCN status" = STATUS)%>%
-      rename("Endemic status" = ENDEMIC.STATUS)%>%
-      rename("Group" = group)%>%
-      dplyr::select(-CUR_NME)%>%
-      filter(!(iucn == 0 & sdm == 0)) %>%
-      mutate(iucn = ifelse(iucn>0, "Yes","No"))%>%
-      mutate(sdm = ifelse(sdm>0, "Yes","No")) %>%
-      mutate(sdm = ifelse(is.na(sdm),"No model",sdm))
-    temp
-    
-    # add in most recent sightings AFTER filtering sightings by MPA also
-    mostrecent_sighting_temp = mostrecent_sighting %>%
-      filter(CUR_NME== input$selectmpa2)
-    mostrecent_sighting_temp$CUR_NME = NULL
-    mostrecent_sighting_temp$GENUS = NULL
-    mostrecent_sighting_temp$SPECIES = NULL
-    
-    # clean up column names
-    colnames(mostrecent_sighting_temp) = str_to_sentence(colnames(mostrecent_sighting_temp))
-    
-    # join to species list
-    temp = left_join(temp,mostrecent_sighting_temp)
-    
-    # find columns with non empty values
-    options = unique(temp$Datatype)
+    # find rows with non empty values
+    options = unique(temp$`Record type`)
     naposition = which(is.na(options))
     options = options[-naposition]
     
-    datatable(temp, filter = "top", options = list(pageLength=10,autoWidth=TRUE,searching=FALSE))%>%
+    datatable(temp, filter = "top", options = list(pageLength=50,autoWidth=TRUE,searching=TRUE))%>%
       formatStyle(
-        columns = 'Datatype',
+        columns = 'Record type',
         target = 'row',
-        valueColumns = 'Datatype',
+        valueColumns = 'Record type',
         backgroundColor = styleEqual(options,'lightgreen')
       )
+  }) 
+  
+  # THIRD TAB
+  # MPAS PER SPECIES
+  output$mpas_perspecies <- DT::renderDataTable({
+    
+    temp = compiled_species_list  %>%
+      filter(`Scientific name` == input$select_a_species)
+    
+    temp$`Scientific name` = NULL
+    temp$`Common name` = NULL
+    temp$`IUCN status` = NULL
+    temp$`Endemic status` = NULL
+    temp$Group = NULL
+    
+    
+    # find rows with non empty values
+    options = unique(temp$`Record type`)
+    naposition = which(is.na(options))
+    options = options[-naposition]
+    
+    datatable(temp, filter = "top", options = list(pageLength=50,autoWidth=TRUE,searching=TRUE))
   }) 
   
   # FIRST TAB
@@ -744,106 +697,12 @@ server <- function(input, output) {
     
   })
   
-  # THIRD TAB
-  # bar chart
-  output$species_permpa_barchart1 <- renderPlot({ 
-    
-    # Specify the desired order of levels
-    temp = species_overlapdata  %>%
-      filter(CUR_NME == input$selectmpa2)%>% 
-      dplyr::select(-iucn) %>%
-      dplyr::select(-sdm)%>%
-      dplyr::select(-range_in_area) %>%
-      dplyr::select(-speciesrange) %>%
-      filter(perc_in_area>0)
-    
-    # total for the MPA
-    totals <- temp%>%
-      group_by(type) %>%
-      summarise(total_spp2 = n())
-    
-    # Specify the desired order of levels
-    desired_order <- c("CR", "EN", "VU","NT","LC","DD")
-    # Use the factor() function to reorder the levels
-    temp$STATUS <- factor(temp$STATUS, levels = desired_order)
-    
-    # Specify the desired order of levels
-    desired_order <- c("South Africa", "Southern Africa", "Not endemic")
-    # Use the factor() function to reorder the levels
-    temp$ENDEMIC.STATUS <- factor(temp$ENDEMIC.STATUS, levels = desired_order)
-    
-    
-    # GRAPH 1: NUMBER BY GROUP AND STATUS
-    # Create a bar plot using ggplot2
-    temp1 = temp %>%
-      group_by(STATUS,group,type,ENDEMIC.STATUS)%>%
-      summarise(total_spp2 = n())
-    
-    ggplot(temp1, aes(x = STATUS,y = total_spp2)) +
-      geom_col(aes(fill = group))+
-      facet_grid(~type)+
-      labs(title = "Number of species who's ranges overlap with the MPA by IUCN status", y = "Number of species") +
-      scale_fill_manual(values = c("grey", "lightblue","darkblue"),name = "")+
-      xlab("")+
-      theme_classic()+
-      #scale_y_continuous(breaks = seq(0, 100, 5))+
-      theme(text = element_text(size = 20))
-  })
-  
-  # THIRD TAB
-  # bar chart
-  output$species_permpa_barchart2 <- renderPlot({ 
-    
-    # Specify the desired order of levels
-    temp = species_overlapdata  %>%
-      filter(CUR_NME == input$selectmpa2)%>% 
-      dplyr::select(-iucn) %>%
-      dplyr::select(-sdm)%>%
-      dplyr::select(-range_in_area) %>%
-      dplyr::select(-speciesrange) %>%
-      filter(perc_in_area>0)
-    
-    # total for the MPA
-    totals <- temp%>%
-      group_by(type) %>%
-      summarise(total_spp2 = n())
-    
-    # Specify the desired order of levels
-    desired_order <- c("CR", "EN", "VU","NT","LC","DD")
-    # Use the factor() function to reorder the levels
-    temp$STATUS <- factor(temp$STATUS, levels = desired_order)
-    
-    # Specify the desired order of levels
-    desired_order <- c("South Africa", "Southern Africa", "Not endemic")
-    # Use the factor() function to reorder the levels
-    temp$ENDEMIC.STATUS <- factor(temp$ENDEMIC.STATUS, levels = desired_order)
-    
-    
-    # GRAPH 2: NUMBER BY GROUP AND ENDEMIC STATUS
-    # Create a bar plot using ggplot2
-    temp1 = temp %>%
-      group_by(STATUS,group,type,ENDEMIC.STATUS)%>%
-      summarise(total_spp2 = n())
-    
-    ggplot(temp1, aes(x = ENDEMIC.STATUS,y = total_spp2)) +
-      geom_col(aes(fill = group))+
-      facet_grid(~type)+
-      labs(title = "Number of species who's ranges overlap with the MPA by Endemic status", y = "Number of species") +
-      scale_fill_manual(values = c("grey", "lightblue","darkblue"),name = "")+
-      xlab("")+
-      theme_classic()+
-      #scale_y_continuous(breaks = seq(0, 100, 5))+
-      theme(axis.text.x = element_text(angle = 90, vjust = 0.5))+
-      theme(text = element_text(size = 20))
-    
-  })
-  
   # FOURTH TAB
   output$rasters_sa <- renderLeaflet({
     
     # extract raster
     names_all = str_replace(names(all_distributions),"\\."," ")
-# piece of logic to make sure temp object is created only if there is a distribution model
+    # piece of logic to make sure temp object is created only if there is a distribution model
         if(length(unique(str_detect(names_all,toupper(input$selectspecies))))>1){
       temp = all_distributions[[which(str_detect(names_all,toupper(input$selectspecies)))]]
     }
@@ -888,7 +747,7 @@ server <- function(input, output) {
                 labels = c("Wilderness, Sanctuary or Restricted (No-take zones)","Controlled (Mixed-use zones)","Controlled-Pelagic Linefish with List (Mixed-use zones)","Controlled Large Pelagic (Mixed-use zones)","Controlled Catch and Release (Mixed-use zone, only in iSimangaliso)")) %>%
       addLegend(colors = c("yellow"),labels = c("IUCN range"))%>%
       # LAYER CONTROL
-      addLayersControl(overlayGroups = c("No-take zones","Mixed-use zones","IUCN range","Distribution models"),options = layersControlOptions(collapsed = FALSE,autoZIndex = TRUE))%>%
+      addLayersControl(overlayGroups = c("No-take zones","Mixed-use zones","IUCN range","Distribution models","Occurrences"),options = layersControlOptions(collapsed = FALSE,autoZIndex = TRUE))%>%
       fitBounds(initialBounds$lng1, initialBounds$lat1, initialBounds$lng2, initialBounds$lat2)
     
     # SDM if it exists
@@ -898,7 +757,7 @@ server <- function(input, output) {
       map = 
         map %>%
         addRasterImage(temp, colors = pal, opacity = 0.5,group = "Distribution models")%>%
-        addLegend(title = "Distrubion model (probability of occurrence)",values = values(temp),pal = pal)}else{map}
+        addLegend(title = "Species Distribution Model (SDM)",values = values(temp),pal = pal)}else{map}
     
     # expert extent if it exists
     if(nrow(temp3)>0){
@@ -929,7 +788,8 @@ server <- function(input, output) {
           color = ~pal(most_recent),
           weight = 5,
           opacity = 1,
-          popup = paste0("Year: ",temp5$most_recent,"<Br>Data type: ",temp5$DATATYPE,"<Br>Owner: ",temp5$OWNER))}else{map}
+          popup = paste0("Year: ",temp5$most_recent,"<Br>Data type: ",temp5$DATATYPE,"<Br>Owner: ",temp5$OWNER),
+          group = "Occurrences")}else{map}
     
     
   })
