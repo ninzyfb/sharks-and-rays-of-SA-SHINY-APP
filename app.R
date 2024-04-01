@@ -435,7 +435,10 @@ ui <- fluidPage(
                              <br><br><b>IMPORTANT:</b> This does not represent the complete set of occurrence data for this species, but is rather meant to show the most recent (or provided) sighting information for a species occurrence in a any particular cell </b></h4>")
                       
                )),
-             fluidRow(column(4,selectizeInput("selectspecies", h4("Select a species"),choices = sort(str_to_sentence(unique(overlap_shortened$SPECIES_SCIENTIFIC))), multiple=FALSE)
+             fluidRow(column(4,selectizeInput("selectspecies", h4("Select a species"),choices = sort(str_to_sentence(unique(overlap_shortened$SPECIES_SCIENTIFIC))), multiple=FALSE, options = list(
+               placeholder = 'Please select an option below',
+               onInitialize = I('function() { this.setValue(""); }')
+             ))
              )),
              fluidRow(align = "center",
                       
@@ -717,6 +720,8 @@ server <- function(input, output) {
   # FOURTH TAB
   output$rasters_sa <- renderLeaflet({
     
+    if(input$selectspecies != ""){
+    
     # extract raster
     names_all = str_replace(names(all_distributions),"\\."," ")
     # piece of logic to make sure temp object is created only if there is a distribution model
@@ -809,7 +814,7 @@ server <- function(input, output) {
           group = "Occurrences")}else{map}
     
     
-  })
+  }})
   
   # Reset the map bounds when the button is clicked
   observeEvent(input$resetButton2, {
