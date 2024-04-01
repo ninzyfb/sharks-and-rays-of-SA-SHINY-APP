@@ -16,6 +16,7 @@ library(DT)
 library(htmlwidgets)
 library(leaflegend)
 library(readxl)
+library(flextable)
 #library(shinyalert)
 
 ##################### IUCN COLORS
@@ -173,6 +174,9 @@ providers = read_xlsx(list.files(pattern = "data_providers_updated",recursive=TR
 providers = unique(providers)
 institutions = read_xlsx(list.files(pattern = "data_providers_updated",recursive=TRUE,  full.names=TRUE),sheet = 2)
 institutions = unique(institutions)
+institutions <- flextable(data = institutions, col_keys = c("Dataset affiliation (not necessarily current owner's affiliation)", "Relevant affiliation link (if applicable)"))%>%
+  autofit()
+institutions <- compose(x = institutions, j = 2, value = as_paragraph( hyperlink_text(x = `Relevant affiliation link (if applicable)`, url = `Relevant affiliation link (if applicable)`)))
 ##################### list of data providers and institutions
 
 #####################  DEFINING THE UI (USER INTERFACE)
@@ -190,7 +194,7 @@ ui <- fluidPage(
   tabsetPanel(
     
     # WELCOME TAB
-    navbarMenu("About",
+    
                tabPanel("Purpose",
                         fluidRow(
                           column(width = 2),
@@ -237,7 +241,7 @@ ui <- fluidPage(
                                  uiOutput("Providers"),
                                  uiOutput("Institutions")
                           )
-                        ))),
+                        )),
     
     # FIRST TAB
     tabPanel("Marine Protected Areas",
@@ -427,7 +431,7 @@ ui <- fluidPage(
                       h4(""),
                       HTML("<h4><b4>This is an interactive map displaying spatial information for South Africa's shark and ray species.<br><br>
                            Data available for the species is currently shown at a <b>10 x 10 km resolution</b>. This means that the species occurrance record is located somewhere within the 10 x 10 km cell.
-                           <br><br> For each green cell, information on the most recent sighting within that cell is shown, as well as date and owner. The darker the green the more recent the sighting.
+                           <br><br> For information on the most recent sighting within that cell, <b>click on the cell</b> and the date as well as data type and owner will be shown. The darker the green the more recent the sighting.
                              <br><br><b>IMPORTANT:</b> This does not represent the complete set of occurrence data for this species, but is rather meant to show the most recent (or provided) sighting information for a species occurrence in a any particular cell </b></h4>")
                       
                )),
@@ -467,7 +471,22 @@ ui <- fluidPage(
                       HTML("<p><b>IUCN ranges:</b><p>"),
                       a("IUCN. 2021. The IUCN Red List of Threatened Species. Version 2021-2.",href ="https://www.iucnredlist.org")
                ))
-    )
+    ),
+    tabPanel("Contact-Suggestions-Comments",
+             fluidRow(
+               column(width = 2),
+               column(width = 8,
+                      h1("Reporting Issues"),
+                      p("The information presented on this site should be accurate. To report anything that seems inaccurate or wrong please email nina-fb@outlook.com"),
+                      h1("Suggesting changes or features"),
+                      HTML("The code used to build this site is available on a github page.
+                      This page also has an <b>issues tab</b> which allows users to log any suggestions such as additional features, ways of showing the data, graphs, tables etc...<br><br>
+                        Please click on the following link, it will bring you to the issues page where you can click on <b>new issue</b> and write down your suggestion:"),
+                        a("https://github.com/ninzyfb/sharks-and-rays-of-SA-SHINY-APP/issues",href ="https://github.com/ninzyfb/sharks-and-rays-of-SA-SHINY-APP/issues"),
+                      
+               )       
+             )
+             )
     
   ),
   # Add inline CSS rule to align legend items to the left
@@ -498,9 +517,7 @@ server <- function(input, output) {
                  )
     
     })
-  output$Institutions <-  renderUI({htmltools_value(flextable(institutions)%>%
-                                                      border_inner_h()%>%
-                                                      autofit())})
+  output$Institutions <-  renderUI({htmltools_value(institutions)})
   
   # FIRST TAB
   output$mpas_sa <- renderLeaflet({
