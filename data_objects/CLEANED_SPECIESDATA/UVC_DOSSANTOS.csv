@@ -1,0 +1,133 @@
+"ABUNDANCE","SPECIES_COMMON","LOCATION","DIVE_SITE","METHOD","LONGITUDE","LATITUDE","DAY","MONTH","YEAR","OWNER","DATATYPE","DATE","TIME","SPECIES_SCIENTIFIC","SEX (DOUBLE CHECK)","DEPTH_(M)","WATER_TEMPERATURE_(°C)","FILE_REFERENCE","OBSERVER","NOTES"
+NA,"Whitetip reef shark","Aliwal Shoal","North Eastern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"23","12","2020","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Ocellated eagle ray","Aliwal Shoal","North Eastern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"23","12","2020","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Great White shark","Aliwal Shoal","Castle","Freedive",30.9544444444444,-30.5061111111111,"23","12","2020","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Manta ray","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"07","01","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Tiger shark","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"07","01","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Aliwal Shoal","North Eastern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"11","01","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Shortfin devil ray","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"10","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Ocellated eagle ray","Aliwal Shoal","North Eastern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"10","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+5,"Tiger shark","Aliwal Shoal","Castle","Freedive",30.9544444444444,-30.5061111111111,"17","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Honeycomb whipay","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"17","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Whitetip reef shark","Aliwal Shoal","North Eastern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"06","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Ocellated eagle ray","Aliwal Shoal","North Eastern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"06","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Whitetip reef shark","Aliwal Shoal","North Eastern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"12","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Tiger shark","Aliwal Shoal","Castle","Freedive",30.9544444444444,-30.5061111111111,"12","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Shortfin devil ray","Aliwal Shoal","North Eastern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"12","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Honeycomb whipay","Aliwal Shoal","North Eastern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"12","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+NA,"Round ribbontail ray","Aliwal Shoal","North Eastern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"31","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Aliwal Shoal","Chunnel","Freedive",30.9572222222222,-30.4380555555556,"11","04","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+8,"Round ribbontail ray","Aliwal Shoal","Chunnel","Freedive",30.9572222222222,-30.4380555555556,"11","04","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Whitetip reef shark","Aliwal Shoal","Chunnel","Freedive",30.9572222222222,-30.4380555555556,"15","04","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Manta ray","Aliwal Shoal","Castle","Sighted from boat",30.9544444444444,-30.5061111111111,"27","04","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ragged-tooth shark","Aliwal Shoal","North Eastern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"02","05","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Aliwal Shoal","Halfway between Umkomaas River Mouth and Castle","Sighted from boat",30.8888888888889,-30.3222222222222,"12","05","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+3,"Jenkins whipray","Bhanga Nek","Reef directly infront of turtle research shack","Freedive",32.8695833333333,-27.0109722222222,"22","11","2019","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Jenkins whipray","Bhanga Nek","Reef directly infront of turtle research shack","Freedive",32.8695833333333,-27.0109722222222,"22","11","2019","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Bhanga Nek","Reef directly infront of turtle research shack","Freedive",32.8695833333333,-27.0109722222222,"27","11","2019","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Reticulate whipray","Bhanga Nek","Reef directly infront of turtle research shack","Freedive",32.8695833333333,-27.0109722222222,"02","12","2019","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+2,"Ocellated eagle ray","Bhanga Nek","Reef directly infront of turtle research shack","Freedive",32.8695833333333,-27.0109722222222,"02","12","2019","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Bhanga Nek","Reef directly infront of turtle research shack","Freedive",32.8695833333333,-27.0109722222222,"23","01","2020","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Honeycomb whipray","Bhanga Nek","Reef directly infront of turtle research shack","Freedive",32.8695833333333,-27.0109722222222,"23","01","2020","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Bhanga Nek","Reef directly infront of turtle research shack","Freedive",32.8695833333333,-27.0109722222222,"05","03","2020","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Whitetip reef shark","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"23","12","2020","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"23","12","2020","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Great white shark","Aliwal Shoal","Castle","Freedive",30.9544444444444,-30.5061111111111,"23","12","2020","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"11","01","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+2,"Ragged-tooth","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"22","01","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+6,"Ragged-tooth","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"22","01","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Honeycomb whipray","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"23","01","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Bluespotted ribbontail ray","Sodwana Bay","Two Mile Reef","Freedive",32.9280555555556,-27.6677777777778,"24","01","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Reticulate whipray","Bhanga Nek","North of the research shack in the middle of the bay about 500 m out to sea","Freedive",32.8691666666667,-27.0083055555556,"30","01","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Bluespotted ribbontail ray","Sodwana Bay","Two Mile Reef","Freedive",32.9280555555556,-27.6677777777778,"31","01","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Jenkins whipray","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"01","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Honeycomb whipray","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"01","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+2,"Bluespotted ribbontail ray","Sodwana Bay","Five Mile Reef (Pothole)","Freedive",32.69,-27.49,"01","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ragged-tooth","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"05","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Whipray species","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"06","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Bluespotted ribbontail ray","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"06","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Reticulate whipray","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"06","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+3,"Shortfin devil ray","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"10","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+14,"Shortfin devil ray","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"10","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"10","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Honeycomb whipay","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"17","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Jenkins whipray","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"28","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+12,"Ocellated eagle ray","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"28","02","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+3,"Ocellated eagle ray","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"01","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"01","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+2,"Ocellated eagle ray","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"01","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Whitetip reef shark","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"06","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"06","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Whitetip reef shark","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"12","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Tiger shark","Aliwal Shoal","Castle","Freedive",30.9544444444444,-30.5061111111111,"12","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+10,"Shortfin devil ray","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"12","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Shortfin devil ray","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"12","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Honeycomb whipay","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"12","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Round ribbontail ray","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"31","03","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ragged-tooth shark","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"02","05","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Aliwal Shoal","Halfway between Umkomaas River Mouth and Castle","Sighted from boat",30.8091111111111,-30.2272222222222,"12","05","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Aliwal Shoal","Chunnel","Freedive",30.9572222222222,-30.4380555555556,"07","08","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Blacktip shark","Umkomaas","Widenham backline","Freedive",30.8030555555556,-30.2103611111111,"31","08","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+2,"Ragged-tooth shark","Aliwal Shoal","Chunnel","Freedive",30.9572222222222,-30.4380555555556,"31","08","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Round ribbontail ray","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"31","08","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Blue stingray","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"31","08","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Bull ray","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"25","09","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Whitetip reef shark","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"11","10","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+3,"Ocellated eagle ray","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"11","10","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+13,"Ragged-tooth shark","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"15","10","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Whitetip reef shark","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"15","10","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Aliwal Shoal","North Sands","Freedive",30.9986111111111,-30.4072222222222,"15","10","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Great white shark","Aliwal Shoal","Chunnel","Freedive",30.9572222222222,-30.4380555555556,"23","10","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+3,"Round ribbontail ray","Aliwal Shoal","Northern Pinnacles","Freedive",31.0055555555556,-30.4194444444444,"23","10","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ragged-tooth shark","Aliwal Shoal","Castle","SCUBA",30.9544444444444,-30.5061111111111,"26","10","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ocellated eagle ray","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"11","11","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Whitetip reef shark","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"11","11","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ragged-tooth shark","Aliwal Shoal","Northern Pinnacles","SCUBA",31.0055555555556,-30.4194444444444,"13","11","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Ragged-tooth shark","Sodwana Bay","Quarter Mile Reef","Freedive",32.6825555555556,-27.5355555555556,"20","11","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+1,"Reticulate whipray","Bhanga Nek","North of the research shack in the middle of the bay about 500 m out to sea","Freedive",32.8691666666667,-27.0083055555556,"04","12","2021","DOSSANTOS_N","UVC",NA,NA,NA,NA,NA,NA,NA,NA,NA
+3,"Ocellated eagle ray","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"01","03","2021","DOSSANTOS_N","UVC",2021-03-01,"07h32","Aetobatus ocellatus","Unknown","8.9","27","20210301_Ocellated_eagle_rays_SodwanaBay (5)","Nats",NA
+1,"Ocellated eagle ray","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"01","03","2021","DOSSANTOS_N","UVC",2021-03-01,"07h30","Aetobatus ocellatus","Female","11","26","20210301_Ocellated_eagle_rays_SodwanaBay (1), 20210301_Ocellated_eagle_rays_SodwanaBay (2), 20210301_Ocellated_eagle_rays_SodwanaBay (3), 20210301_Ocellated_eagle_rays_SodwanaBay (4)","Nats",NA
+2,"Ocellated eagle ray","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"01","03","2021","DOSSANTOS_N","UVC",2021-03-01,"07h26","Aetobatus ocellatus","Female","6","25","20210301_Ocellated_eagle_rays_SodwanaBay (6)","Nats",NA
+1,"Jenkins whipray","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"28","02","2021","DOSSANTOS_N","UVC",2021-02-28,"11h05","Pateobatis jenkinsii","Male","9.1999999999999993","27","20210228_Jenkins_whipray_SodwanaBay","Nats",NA
+12,"Ocellated eagle ray","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"28","02","2021","DOSSANTOS_N","UVC",2021-02-28,"09h42","Aetobatus ocellatus","Both","11.4","27","20210228_Ocellated_eagle_rays_SodwanaBay","Nats",NA
+3,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"10h40","Carcharias taurus","Unknown","6.6","27","20210207_Raggie_Reef_Sanctuary_SodwanaBay (3)","Nats",NA
+6,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"10h38","Carcharias taurus","Unknown","5.5","27","20210207_Raggie_Reef_Sanctuary_SodwanaBay (2)","Nats",NA
+7,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"10h37","Carcharias taurus","Unknown","7.7","27","20210207_Raggie_Reef_Sanctuary_SodwanaBay (1)","Nats",NA
+1,"Jenkins whipray","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"10h20","Pateobatis jenkinsii","Female","8.6999999999999993","27","20210207_Jenkins_whipray_Raggie_Reef_Sanctuary (2)","Nats",NA
+1,"Jenkins whipray","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"09h59","Pateobatis jenkinsii","Female","4","27","20210207_Jenkins_whipray_Raggie_Reef_Sanctuary (1)","Nats",NA
+1,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"09h37","Carcharias taurus","Female","10.199999999999999","27","20210207_Raggie_Raggie_Reef_Sanctuary (9)","Nats",NA
+1,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"09h31","Carcharias taurus","Female","8","27","20210207_Raggie_Raggie_Reef_Sanctuary (8)","Nats",NA
+1,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"09h29","Carcharias taurus","Female","9.3000000000000007","27","20210207_Raggie_Raggie_Reef_Sanctuary (7)","Nats",NA
+1,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"09h26","Carcharias taurus","Unknown","12.6","27","20210207_Raggie_Raggie_Reef_Sanctuary (6)","Nats",NA
+1,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"09h09","Carcharias taurus","Unknown","11.1","27","20210207_Raggie_Raggie_Reef_Sanctuary (5)","Nats",NA
+8,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"09h04","Carcharias taurus","Unknown","10.199999999999999","27","20210207_Raggie_Reef_Sanctuary_SodwanaBay (5)","Nats",NA
+6,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"09h03","Carcharias taurus","Unknown","11.8","27","20210207_Raggie_Reef_Sanctuary_SodwanaBay (4)","Nats",NA
+1,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"08h48","Carcharias taurus","Unknown","11.3","27","20210207_Raggie_Raggie_Reef_Sanctuary (2)","Nats",NA
+1,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"08h46","Carcharias taurus","Unknown","11.2","27","20210207_Raggie_Raggie_Reef_Sanctuary (1)","Nats",NA
+2,"Ocellated eagle ray","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"07","02","2021","DOSSANTOS_N","UVC",2021-02-07,"07h04","Aetobatus ocellatus","Female","6.6","27","20210207_Ocellated_eagle_rays_Raggie_Reef_Sanctuary","Nats",NA
+1,"Whipray species","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"06","02","2021","DOSSANTOS_N","UVC",2021-02-06,"12h33","Unknown","Unknown","7.7","27","20210206_Whipray_SodwanaBay","Nats",NA
+1,"Bluespotted ribbontail ray","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"06","02","2021","DOSSANTOS_N","UVC",2021-02-06,"12h24","Taeniura lymma","Male","12","27","20210206_Bluespotted_ribbontail_ray_SodwanaBay","Nats",NA
+1,"Reticulate whipray","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"06","02","2021","DOSSANTOS_N","UVC",2021-02-06,"12h29","Himantura uarnak","Male","10.4","27","20210206_Reticulate_whipray_SodwanaBay","Nats",NA
+1,"Ragged-tooth","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"05","02","2021","DOSSANTOS_N","UVC",2021-02-05,"14h16","Carcharias taurus","Unknown","8.9","27","20210205_Raggie_SodwanaBay","Nats",NA
+1,"Jenkins whipray","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"01","02","2021","DOSSANTOS_N","UVC",2021-02-01,"08h11","Pateobatis jenkinsii","Female","-","-","20210201_Jenkins_whipray_SodwanaBay","Nats",NA
+1,"Honeycomb whipray","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"01","02","2021","DOSSANTOS_N","UVC",2021-02-01,"08h20","Himantura undulata","Male","-","-","20210201_Honeycomb_whipray_SodwanaBay","Nats",NA
+2,"Bluespotted ribbontail ray","Sodwana Bay","Five Mile Reef (Pothole)",NA,32.69,-27.49,"01","02","2021","DOSSANTOS_N","UVC",2021-02-01,"11h01","Taeniura lymma","Female","-","-","20210201_Bluespotted_ribbontail_rays_SodwanaBay","Nats",NA
+1,"Bluespotted ribbontail ray","Sodwana Bay","Two Mile Reef",NA,32.92806,-27.66778,"31","01","2021","DOSSANTOS_N","UVC",2021-01-31,"13h33","Taeniura lymma","Female","-","-","20210131_Bluespotted_ribbontail_ray_SodwanaBay","Nats",NA
+1,"Reticulate whipray","Bhanga Nek","North of the research shack in the middle of the bay about 500 m out to sea",NA,32.869144,-27.011784,"30","01","2021","DOSSANTOS_N","UVC",2021-01-30,"13h11","Himantura uarnak","Male","-","-","20210130_Reticulate_whipray_BhangaNek","Nats",NA
+1,"Bluespotted ribbontail ray","Sodwana Bay","Two Mile Reef",NA,32.92806,-27.66778,"24","01","2021","DOSSANTOS_N","UVC",2021-01-24,"10h03","Taeniura lymma","Female","14.4","27","20210124_Bluespotted_ribbontail_ray_SodwanaBay","Nats",NA
+1,"Honeycomb whipray","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"23","01","2021","DOSSANTOS_N","UVC",2021-01-23,"11h41","Himantura undulata","Female","9.4","27","20210123_Honeycomb_whipray_SodwanaBay","Nats",NA
+1,"Ragged-tooth","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"23","01","2021","DOSSANTOS_N","UVC",2021-01-23,"10h55","Carcharias taurus","Unknown","2.8","29","20210123_Raggie_Reef_Sanctuary_SodwanaBay (1)","Nats",NA
+1,"Ocellated eagle ray","ISWP Sanctuary ± 40km south of Jesser Point","Raggie Reef",NA,32.5974,-27.9138,"23","01","2021","DOSSANTOS_N","UVC",2021-01-23,"10h13","Aetobatus ocellatus","Unknown","7.8","27","20210123_Ocellated_eagle_ray_Raggie_Reef_Sanctuary","Nats","My dive watch unfortunately does not have data before 2021/01/23. Depths are estimates."
+2,"Ragged-tooth","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"22","01","2021","DOSSANTOS_N","UVC",2021-01-22,"09h46","Carcharias taurus","Unknown","10","-","20210122_Raggies_SodwanaBay (2)","Nats","The 2 data entries on 2021/02/22 may be the same individuals but I remember counting 8 or 9 this day. Sharklife will have more info on Sodwana Bay sightings"
+6,"Ragged-tooth","Sodwana Bay","Quarter Mile Reef",NA,32.68256,-27.53556,"22","01","2021","DOSSANTOS_N","UVC",2021-01-22,"09h42","Carcharias taurus","Unknown","10","-","20210122_Raggies_SodwanaBay (1)","Nats",NA
+1,"Ocellated eagle ray","Bhanga Nek","Reef directly infront of turtle research shack",NA,32.869144,-27.011784,"05","03","2020","DOSSANTOS_N","UVC",2020-03-05,"12h44","Aetobatus ocellatus","Male","5","-","20200305_Ocellated_eagle_ray_BhangaNek (3)","Nats",NA
+1,"Ocellated eagle ray","Bhanga Nek","Reef directly infront of turtle research shack",NA,32.869144,-27.011784,"05","03","2020","DOSSANTOS_N","UVC",2020-03-05,"12h38","Aetobatus ocellatus","Unknown","3","-","20200305_Ocellated_eagle_ray_BhangaNek (2)","Nats",NA
+1,"Ocellated eagle ray","Bhanga Nek","Reef directly infront of turtle research shack",NA,32.869144,-27.011784,"05","03","2020","DOSSANTOS_N","UVC",2020-03-05,"12h37","Aetobatus ocellatus","Unknown","3","-","20200305_Ocellated_eagle_ray_BhangaNek (1)","Nats",NA
+1,"Ocellated eagle ray","Bhanga Nek","Reef directly infront of turtle research shack",NA,32.869144,-27.011784,"23","01","2020","DOSSANTOS_N","UVC",2020-01-23,"13h51","Aetobatus ocellatus","Female","0-5","-","20200123_Ocellated_eagle_ray_BhangaNek","Nats",NA
+1,"Honeycomb whipray","Bhanga Nek","Reef directly infront of turtle research shack",NA,32.869144,-27.011784,"23","01","2020","DOSSANTOS_N","UVC",2020-01-23,"13h35","Himantura undulata","Female","5","-","20200123_Honeycomb_whipray_BhangaNek","Nats",NA
+1,"Reticulate whipray","Bhanga Nek","Reef directly infront of turtle research shack",NA,32.869144,-27.011784,"02","12","2019","DOSSANTOS_N","UVC",2019-12-02,"11h06","Himantura uarnak","Male","5","-","20191202_Reticulate_whipray_BhangaNek","Nats",NA
+2,"Ocellated eagle ray","Bhanga Nek","Reef directly infront of turtle research shack",NA,32.869144,-27.011784,"02","12","2019","DOSSANTOS_N","UVC",2019-12-02,"11h04","Aetobatus ocellatus","Female","5","-","20191202_Ocellated_eagle_rays_BhangaNek","Nats",NA
+1,"Ocellated eagle ray","Bhanga Nek","Reef directly infront of turtle research shack",NA,32.869144,-27.011784,"27","11","2019","DOSSANTOS_N","UVC",2019-11-27,"12h15","Aetobatus ocellatus","Female","4","-","20191127_Ocellated_eagle_ray_BhangaNek (2)","Nats",NA
+1,"Ocellated eagle ray","Bhanga Nek","Reef directly infront of turtle research shack",NA,32.869144,-27.011784,"27","11","2019","DOSSANTOS_N","UVC",2019-11-27,"12h14","Aetobatus ocellatus","Unknown","4","-","20191127_Ocellated_eagle_ray_BhangaNek (1)","Nats",NA
+3,"Jenkins whipray","Bhanga Nek","Reef directly infront of turtle research shack",NA,32.869144,-27.011784,"22","11","2019","DOSSANTOS_N","UVC",2019-11-22,"09h37","Pateobatis jenkinsii","Female","6","-","20191122_Jenkins_whipray_BhangaNek (2)","Nats",NA
+1,"Jenkins whipray","Bhanga Nek","Reef directly infront of turtle research shack",NA,32.869144,-27.011784,"22","11","2019","DOSSANTOS_N","UVC",2019-11-22,"09h33","Pateobatis jenkinsii","Female","6","-","20191122_Jenkins_whipray_BhangaNek (1)","Nats",NA

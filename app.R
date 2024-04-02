@@ -54,6 +54,12 @@ icon_blue <- makeIcon(
 
 ##################### MPA DATA
 shapefile_data_simple = readRDS(list.files(pattern = "shapefile_data_simple.RDS",recursive = TRUE))
+# zone typre (test to speed up mapping)
+notake = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Restricted","Sanctuary","Wilderness")),]
+ccr = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled Catch and Release")),]
+c = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled")),]
+cpl = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled-Pelagic Linefish with list")),]
+clp = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled Large Pelagic")),]
 ##################### MPA DATA
 
 
@@ -390,9 +396,10 @@ ui <- fluidPage(
              
              fluidRow(
                column(3,# list of MPA inputs
-                      selectInput("selectmpa2",
-                                  "Select an MPA:",
-                                  c(sort(unique(shapefile_data_simple$CUR_NME)))))),
+                      selectizeInput("selectmpa2",
+                                  "Select an MPA:",c(sort(unique(shapefile_data_simple$CUR_NME))),
+                                  options = list(placeholder = 'Select an MPA', onInitialize = I('function() { this.setValue(""); }'))
+                                  ))),
              
              
              fluidRow( # row 2
@@ -406,9 +413,12 @@ ui <- fluidPage(
              
              fluidRow( # row 3
                column(3,# list of species
-                      selectInput("select_a_species",
+                      selectizeInput("select_a_species",
                                   "Select a species:",
-                                  c(sort(unique(compiled_species_list$`Scientific name`))))),
+                                  c(sort(unique(compiled_species_list$`Scientific name`))),options = list(
+                                    placeholder = 'Select a species',
+                                    onInitialize = I('function() { this.setValue(""); }')
+                                  ))),
                column(9,DT::dataTableOutput("mpas_perspecies")),
                style = "margin-bottom: 20px;"),
              
@@ -435,8 +445,9 @@ ui <- fluidPage(
                              <br><br><b>IMPORTANT:</b> This does not represent the complete set of occurrence data for this species, but is rather meant to show the most recent (or provided) sighting information for a species occurrence in a any particular cell </b></h4>")
                       
                )),
-             fluidRow(column(4,selectizeInput("selectspecies", h4("Select a species"),choices = sort(str_to_sentence(unique(overlap_shortened$SPECIES_SCIENTIFIC))), multiple=FALSE, options = list(
-               placeholder = 'Please select an option below',
+             fluidRow(column(4,selectizeInput("selectspecies", h4("Select a species"),choices = sort(str_to_sentence(unique(overlap_shortened$SPECIES_SCIENTIFIC))), multiple=FALSE, 
+                                              options = list(
+               placeholder = 'Please select a species',
                onInitialize = I('function() { this.setValue(""); }')
              ))
              )),
@@ -530,16 +541,18 @@ server <- function(input, output) {
       setView(lng=20.16181,lat=-33, zoom = 5) %>%
       addPolygons(data = eez_sa,weight = 1, color = "grey",fillColor = "white",fillOpacity = 0)%>%
       addPolylines(data = contours,weight = 1, color = "grey",label = ~DEPTH,popup = ~DEPTH,fillOpacity = 0)%>%
-      addPolygons(data = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Restricted","Sanctuary","Wilderness")),],weight = 1,popup = ~CUR_NME,label = ~CUR_NME, color = "Blue",fillColor = "skyblue",fillOpacity = 0.6, group = "No-take zones")%>%
-      addPolygons(data = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled Catch and Release")),],weight = 1,label = ~CUR_NME,popup = ~CUR_NME, color = "green4",fillColor = "green",fillOpacity = 0.6,group = "Mixed-use zones")%>%
-      addPolygons(data = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled")),],weight = 1,label = ~CUR_NME,popup = ~CUR_NME, color = "Purple",fillColor = "purple",fillOpacity = 0.6,group = "Mixed-use zones")%>%
-      addPolygons(data = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled-Pelagic Linefish with list")),],weight = 1,label = ~CUR_NME,popup = ~CUR_NME, color = "Purple",fillColor = "hotpink",fillOpacity = 0.6,group = "Mixed-use zones")%>%
-      addPolygons(data = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled Large Pelagic")),],weight = 1,label = ~CUR_NME, popup = ~CUR_NME,color = "Purple",fillColor = "lightpink",fillOpacity = 0.6,group = "Mixed-use zones")%>%
+      addPolygons(data = notake,weight = 1,popup = ~CUR_NME,label = ~CUR_NME, color = "Blue",fillColor = "skyblue",fillOpacity = 0.6, group = "No-take zones")%>%
+      addPolygons(data = ccr,weight = 1,label = ~CUR_NME,popup = ~CUR_NME, color = "green4",fillColor = "green",fillOpacity = 0.6,group = "Mixed-use zones")%>%
+      addPolygons(data = c,weight = 1,label = ~CUR_NME,popup = ~CUR_NME, color = "Purple",fillColor = "purple",fillOpacity = 0.6,group = "Mixed-use zones")%>%
+      addPolygons(data = cpl,weight = 1,label = ~CUR_NME,popup = ~CUR_NME, color = "Purple",fillColor = "hotpink",fillOpacity = 0.6,group = "Mixed-use zones")%>%
+      addPolygons(data = clp,weight = 1,label = ~CUR_NME, popup = ~CUR_NME,color = "Purple",fillColor = "lightpink",fillOpacity = 0.6,group = "Mixed-use zones")%>%
       addLegend("bottomleft",title = "Zone Types", colors = c("skyblue","purple","hotpink","lightpink","green"), opacity = 1,
                 labels = c("Wilderness, Sanctuary or Restricted (No-take zones)","Controlled (Mixed-use zones)","Controlled-Pelagic Linefish with List (Mixed-use zones)","Controlled Large Pelagic (Mixed-use zones)","Controlled Catch and Release (Mixed-use zone, only in iSimangaliso MPA - KZN)")) %>%
       addLayersControl(overlayGroups = c("No-take zones","Mixed-use zones"), options = layersControlOptions(collapsed = FALSE,autoZIndex = TRUE))%>%
       fitBounds(initialBounds$lng1, initialBounds$lat1, initialBounds$lng2, initialBounds$lat2)
-  })
+  
+    mpas_sa
+    })
   
   # Reset the map bounds when the button is clicked
   observeEvent(input$resetButton, {
