@@ -17,7 +17,7 @@ library(htmlwidgets)
 library(leaflegend)
 library(readxl)
 library(flextable)
-#library(shinyalert)
+library(shinyalert)
 
 ##################### IUCN COLORS
 # Define a color palette for each IUCN Red List status
@@ -514,7 +514,7 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   
-  #shinyalert("Hello! Please read:", "Please note that this app is in development. It will be live during South Africa's 2023 Shark and Ray Symposium to allow delegates to test it. The server used to host it has a maximum free allowance of 25h per month, once that is exceeded the app will no longer be online so please close the app from your browser once you are finished :)", type = "info")
+  shinyalert("Hello! Please read:", "Please note that this app is in development and maps take about 5min to appear", type = "info")
   
   # HOME TAB
   output$Providers <-  renderUI({
