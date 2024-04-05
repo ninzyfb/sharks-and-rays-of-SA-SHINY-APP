@@ -43,7 +43,7 @@ server <- function(input, output) {
   # FIRST TAB
   output$mpas_sa <- renderLeaflet({
     
-    mpas_sa <- leaflet() %>%
+   leaflet() %>%
       addProviderTiles("CartoDB.Positron") %>%
       setView(lng=20.16181,lat=-33, zoom = 5) %>%
       addPolygons(data = eez_sa,weight = 1, color = "grey",fillColor = "white",fillOpacity = 0)%>%
@@ -58,7 +58,7 @@ server <- function(input, output) {
       addLayersControl(overlayGroups = c("No-take zones","Mixed-use zones"), options = layersControlOptions(collapsed = FALSE,autoZIndex = TRUE))%>%
       fitBounds(initialBounds$lng1, initialBounds$lat1, initialBounds$lng2, initialBounds$lat2)
     
-    mpas_sa
+    
   })
   
   # Reset the map bounds when the button is clicked
