@@ -16,6 +16,8 @@ library(leaflegend)
 library(readxl)
 library(flextable)
 library(shinyalert)
+library(feather)
+
 ##################### IUCN COLORS
 # Define a color palette for each IUCN Red List status
 status_colors <- c(
@@ -60,18 +62,14 @@ eez_sa = st_read(list.files(pattern = "eez.shp",recursive = TRUE, full.names = T
 
 
 ##################### MASTER SHEET
-# Path
-#file_path <- list.files(pattern = "data_summary_master.xlsx", recursive=TRUE,full.names = TRUE)
 # File
-master = readxl::read_xlsx( list.files(pattern = "data_summary_master.xlsx", recursive=TRUE,full.names = TRUE))
-# remove variables that i added previously
-master = master[,c(1:4,12)]
+master = read_feather(list.files(pattern = "master.feather",recursive=TRUE,full.names=TRUE))
 ##################### MASTER SHEET
 
 
 ##################### SPECIES PER MPA DATA
 # File
-species_overlapdata = read.csv(list.files(pattern = "species_permpa_byiusnandsdms.csv", recursive=TRUE,full.names = TRUE))
+species_overlapdata = read_feather(list.files(pattern = "species_permpa_byiusnandsdms.feather", recursive=TRUE,full.names = TRUE))
 ##################### SPECIES PER MPA DATA
 
 
@@ -89,20 +87,12 @@ iucn_file_list = readRDS(list.files(pattern = "iucn_file_list.RDS",recursive = T
 
 
 ##################### PREPARE MASTER TABLE FOR FIRST PAGE
-overlap_shortened = unique(species_overlapdata[,c(1,6,7)])
-master$iucn = NA
-master$iucn[which(master$SPECIES_SCIENTIFIC %in% overlap_shortened$SPECIES_SCIENTIFIC[overlap_shortened$type == "iucn"])] = "Yes"
-master$iucn[which(is.na(master$iucn))] = "No"
-master$sdm = NA
-master$sdm[which(master$SPECIES_SCIENTIFIC %in% overlap_shortened$SPECIES_SCIENTIFIC[overlap_shortened$type == "sdm"])] = "Yes"
-master$sdm[which(is.na(master$sdm))] = "No"
-master = master %>%
-  mutate(ENDEMIC.STATUS = ifelse(ENDEMIC.STATUS == 1,"South Africa", ifelse(ENDEMIC.STATUS == 2,"Southern Africa", "Not endemic")))
+overlap_shortened = read_feather(list.files(pattern = "overlap_shortened",recursive=TRUE,full.names=TRUE))
 ##################### PREPARE MASTER TABLE FOR FIRST PAGE
 
 
 ##################### add some info to overlap data
-species_overlapdata = left_join(species_overlapdata,master)
+species_overlapdata = read_feather(list.files(pattern = "species_overlapdata",recursive=TRUE,full.names=TRUE))
 ##################### add some info to overlap data
 
 
@@ -118,7 +108,7 @@ expert_extent = left_join(overlap_shortened,expert_extent)
 
 
 ##################### EAST AND WEST BOUNDARIES PER SPECIES
-boundaries = read.csv(list.files(pattern = "boundaries.csv",recursive = TRUE, full.names = TRUE))
+boundaries = read_feather(list.files(pattern = "boundaries.feather",recursive=TRUE,full.names=TRUE))
 #####################  EAST AND WEST BOUNDARIES PER SPECIES
 
 
@@ -139,16 +129,12 @@ initialBounds <- list(
 
 
 ##################### MOST RECENT SIGHTING PER MPA
-mostrecent_sighting = readRDS(list.files(pattern = "sightings_mostrecent.RDS",recursive = TRUE, full.names = TRUE))
-mostrecent_sighting$SPECIES_SCIENTIFIC = as.character(mostrecent_sighting$SPECIES_SCIENTIFIC )
-mostrecent_sighting = ungroup(mostrecent_sighting)
-colnames(mostrecent_sighting)[which(colnames(mostrecent_sighting) == "SPECIES_SCIENTIFIC")] = "Scientific name"
-mostrecent_sighting$`Scientific name` = str_to_sentence(mostrecent_sighting$`Scientific name`)
+mostrecent_sighting = read_feather(list.files(pattern = "mostrecent_sighting.feather",recursive=TRUE,full.names = TRUE))
 ##################### MOST RECENT SIGHTING PER MPA
 
 
 ##################### DATA POINTS PER HIGH RES GRID CELL
-lifehistory = read.csv(list.files(pattern = "lifehistory_parameters.csv",recursive = TRUE, full.names = TRUE))
+lifehistory = read_feather(list.files(pattern = "lifehistory_parameters.feather",recursive = TRUE, full.names = TRUE))
 #####################  DATA POINTS PER HIGH RES GRID CELL
 
 
@@ -158,8 +144,9 @@ contours = readRDS(list.files(pattern = "contours.RDS",recursive = TRUE))
 
 
 ##################### list of species per map as well as their most recent sighing
-compiled_species_list = readRDS(list.files(pattern = "compiled-species_list.RDS",recursive = TRUE,full.names = TRUE))
+compiled_species_list = read_feather(list.files(pattern = "compiled_species_list.feather",recursive = TRUE, full.names = TRUE))
 ##################### list of species per map as well as their most recent sighing
+
 
 ##################### list of data providers and institutions
 providers = read_xlsx(list.files(pattern = "data_providers_updated",recursive=TRUE,  full.names=TRUE),sheet = 1)
@@ -171,15 +158,30 @@ institutions <- flextable(data = institutions, col_keys = c("Dataset affiliation
 institutions <- compose(x = institutions, j = 2, value = as_paragraph( hyperlink_text(x = `Relevant affiliation link (if applicable)`, url = `Relevant affiliation link (if applicable)`)))
 ##################### list of data providers and institutions
 
+
 ##################### MPA DATA
 shapefile_data_simple = readRDS(list.files(pattern = "shapefile_data_simple.RDS",recursive = TRUE))
-# zone typre (test to speed up mapping)
-notake = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Restricted","Sanctuary","Wilderness")),]
-ccr = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled Catch and Release")),]
-c = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled")),]
-cpl = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled-Pelagic Linefish with list")),]
-clp = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled Large Pelagic")),]
+# zone type (test to speed up mapping)
+notake = readRDS(list.files(pattern ="notake.RDS",recursive = TRUE,full.names = TRUE))
+ccr = readRDS(list.files(pattern ="ccr.RDS",recursive = TRUE,full.names = TRUE))
+c = readRDS(list.files(pattern ="c.RDS",recursive = TRUE,full.names = TRUE))
+cpl =readRDS(list.files(pattern ="cpl.RDS",recursive = TRUE,full.names = TRUE))
+clp = readRDS(list.files(pattern ="clp.RDS",recursive = TRUE,full.names = TRUE))
 ##################### MPA DATA
+
+
+##### species summary table
+table1 = master%>%
+  rename("IUCN range available?" = iucn) %>%
+  rename("Species Distribution Model produced?" = sdm)%>%
+  mutate(SPECIES_SCIENTIFIC = str_to_sentence(SPECIES_SCIENTIFIC))%>%
+  rename("Common name" = Species_common)%>%
+  rename("Scientific name" = SPECIES_SCIENTIFIC)%>%
+  rename("IUCN Red List Status" = STATUS)%>%
+  rename("Endemic status" = ENDEMIC.STATUS)%>%
+  rename("Group" = group)
+##### species summary table
+
 
 #####################  DEFINING THE UI (USER INTERFACE)
 # Define UI for application 
