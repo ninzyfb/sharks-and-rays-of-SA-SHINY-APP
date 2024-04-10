@@ -44,7 +44,7 @@ server <- function(input, output) {
   output$mpas_sa <- renderLeaflet({
     
    leaflet() %>%
-      addProviderTiles("CartoDB.Positron") %>%
+      addTiles %>%
       setView(lng=20.16181,lat=-33, zoom = 5) %>%
       addPolygons(data = eez_sa,weight = 1, color = "grey",fillColor = "white",fillOpacity = 0)%>%
       addPolylines(data = contours,weight = 1, color = "grey",label = ~DEPTH,popup = ~DEPTH,fillOpacity = 0)%>%

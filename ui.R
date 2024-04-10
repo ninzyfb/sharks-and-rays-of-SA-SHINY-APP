@@ -17,6 +17,9 @@ library(readxl)
 library(flextable)
 library(shinyalert)
 library(feather)
+library(mapdeck)
+set_token("pk.eyJ1IjoibmluenlmYiIsImEiOiJjbHVxc3NzcjYwMXVkMnNxcWpjcGxpZHU0In0.e91nxemBTH3tAcwtoAroIw")
+
 
 ##################### IUCN COLORS
 # Define a color palette for each IUCN Red List status
@@ -261,8 +264,11 @@ ui <- fluidPage(
                       h4(tags$b("Source of spatial information below:")),
                       a("South Africa Marine Protected Area Zonations (SAMPAZ_OR_2023_Q2), Department of Environmental Affairs",href ="https://egis.environment.gov.za/data_egis/data_download/current")
                ),
-               column(9, align = "center", column(12,leafletOutput("mpas_sa",width = "80%", height = "50vh"),
-                                                  actionButton("resetButton", "Reset Zoom")))
+               column(9, align = "center", column(12,leafletOutput("mpas_sa",width = "80%", height = "50vh")
+                                                  ,actionButton("resetButton", "Reset Zoom")
+                                                )
+                      
+                      )
              ),
              
              # NEW SECOND ROW
