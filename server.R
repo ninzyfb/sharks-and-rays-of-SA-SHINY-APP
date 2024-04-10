@@ -45,7 +45,13 @@ server <- function(input, output) {
     
    leaflet() %>%
       addTiles %>%
-      setView(lng=20.16181,lat=-33, zoom = 5) %>%
+      setView(lng=20.16181,lat=-33, zoom = 5)
+  })
+  
+  # Reset the map bounds when the button is clicked
+  observeEvent(input$resetButton, {
+    leafletProxy("mpas_sa") %>%
+      fitBounds(initialBounds$lng1, initialBounds$lat1, initialBounds$lng2, initialBounds$lat2) %>%
       addPolygons(data = eez_sa,weight = 1, color = "grey",fillColor = "white",fillOpacity = 0)%>%
       addPolylines(data = contours,weight = 1, color = "grey",label = ~DEPTH,popup = ~DEPTH,fillOpacity = 0)%>%
       addPolygons(data = notake,weight = 1,popup = ~CUR_NME,label = ~CUR_NME, color = "Blue",fillColor = "skyblue",fillOpacity = 0.6, group = "No-take zones")%>%
@@ -59,12 +65,6 @@ server <- function(input, output) {
       fitBounds(initialBounds$lng1, initialBounds$lat1, initialBounds$lng2, initialBounds$lat2)
     
     
-  })
-  
-  # Reset the map bounds when the button is clicked
-  observeEvent(input$resetButton, {
-    leafletProxy("mpas_sa") %>%
-      fitBounds(initialBounds$lng1, initialBounds$lat1, initialBounds$lng2, initialBounds$lat2)
   })
   
   # FIRST TAB
