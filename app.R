@@ -32,6 +32,7 @@ library(flextable)
 library(shinyalert)
 library(feather)
 library(mapboxer)
+library(plotly)
 
 # map box token
 Sys.setenv('MAPBOX_TOKEN' = 'pk.eyJ1IjoibmluenlmYiIsImEiOiJjbHVxc3NzcjYwMXVkMnNxcWpjcGxpZHU0In0.e91nxemBTH3tAcwtoAroIw')
