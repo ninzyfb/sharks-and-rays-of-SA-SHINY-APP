@@ -33,6 +33,9 @@ library(shinyalert)
 library(feather)
 library(mapboxer)
 
+# map box token
+Sys.setenv('MAPBOX_TOKEN' = 'pk.eyJ1IjoibmluenlmYiIsImEiOiJjbHVxc3NzcjYwMXVkMnNxcWpjcGxpZHU0In0.e91nxemBTH3tAcwtoAroIw')
+
 ##################### IUCN COLORS
 # Define a color palette for each IUCN Red List status
 status_colors <- c(
