@@ -14,22 +14,6 @@ library(leaflegend)
 library(readxl)
 library(flextable)
 library(shinyalert)
-library(feather)# packages
-library(leaflet)
-library(leafpop)
-library(tidyverse)
-library(shinythemes)
-library(reactable)
-library(stringr)
-library(sf)
-library(terra)
-library(dplyr)
-library(DT)
-library(htmlwidgets)
-library(leaflegend)
-library(readxl)
-library(flextable)
-library(shinyalert)
 library(feather)
 #library(mapboxer)
 #library(plotly)
@@ -150,6 +134,7 @@ institutions <- flextable(data = institutions, col_keys = c("Dataset affiliation
 institutions <- compose(x = institutions, j = 2, value = as_paragraph( hyperlink_text(x = `Relevant affiliation link (if applicable)`, url = `Relevant affiliation link (if applicable)`)))
 ##################### list of data providers and institutions
 
+
 ##################### MPA DATA
 shapefile_data_simple = readRDS(list.files(pattern = "shapefile_data_simple.RDS",recursive = TRUE))
 ##################### MPA DATA
@@ -195,8 +180,7 @@ expert_extent = left_join(overlap_shortened,expert_extent)
 ##################### Expert extents
 
 
-
-# leaflet map
+##################### leaflet map
 # zone type (test to speed up mapping)
 notake = readRDS(list.files(pattern ="notake.RDS",recursive = TRUE,full.names = TRUE))
 ccr = readRDS(list.files(pattern ="ccr.RDS",recursive = TRUE,full.names = TRUE))
@@ -216,6 +200,8 @@ sa_map = leaflet() %>%
   addLegend("bottomleft",title = "Zone Types", colors = c("skyblue","purple","hotpink","lightpink","green"), opacity = 1,
             labels = c("Wilderness, Sanctuary or Restricted (No-take zones)","Controlled (Mixed-use zones)","Controlled-Pelagic Linefish with List (Mixed-use zones)","Controlled Large Pelagic (Mixed-use zones)","Controlled Catch and Release (Mixed-use zone, only in iSimangaliso MPA - KZN)")) %>%
   addLayersControl(overlayGroups = c("No-take zones","Mixed-use zones"), options = layersControlOptions(collapsed = FALSE,autoZIndex = TRUE))
+##################### leaflet map
+
 
 #####################  DEFINING THE UI (USER INTERFACE)
 # Define UI for application 
@@ -223,7 +209,7 @@ ui <- fluidPage(
   
   theme = shinytheme("united"),
   
-  #Jumbotrons are pretty, they make nice headers
+  # Jumbotrons are pretty, they make nice headers
   tags$div(class = "jumbotron text-center", style = "margin-bottom:0px;margin-top:0px",
            tags$h2(class = 'jumbotron-heading', stye = 'margin-bottom:0px;margin-top:0px', 'Sharks, Rays and MPAs'),
            p('Interactive website to visualise spatial data on sharks, rays and MPAs in SA')
@@ -231,8 +217,7 @@ ui <- fluidPage(
   
   tabsetPanel(
     
-    # WELCOME TAB
-    
+    ####### PURPOSE TAB
     tabPanel("Purpose",
              fluidRow(
                column(width = 2),
@@ -249,60 +234,83 @@ ui <- fluidPage(
                )       
              )
     ),
+    ####### PURPOSE TAB
+    
+    ####### DATA TAB
     tabPanel("Data",
              fluidRow(
                column(width = 2),
                column(width = 8,
-                      h1("Data"),
-                      p("A wide variety of data collection methods can be used to gather spatial information on sharks and rays. Any information which is accompanied by a date, species identification and GPS coordinates can be inputed here provided it comes from a verified source."),
-                      h1("Data Privacy and Data sharing"),
-                      p("Sharing hard-earned datasets is often a daunting prospect. It is important to know that this app does not allow original dataset downloads. This platform is designed exclusively for visualization of datasets provided."),
-                      h1("Data resolution"),
-                      p("This app allows collaborators to remain in control of the resolution at which they wish to display their spatial information. Some datasets may be more sensitive than others but even coarser scales can still contribute valuable insights to the distribution range of a species. Please see the species spatial information tab to see how data is displayed."),
-                      h1("Data sources"),
-                      h2("IUCN ranges"),
-                      p("The IUCN provides a distribution map for each species which displays their range by drawing a polygon around all known occurrences.
-                                 This range is formally described as the Extent of Occurrence (EOO). An EOO is 
-                                 the area contained within the shortest continuous imaginary boundary which can be drawn to encompass all the known,
-                                   inferred or projected sites of present occurrence of a taxon, excluding cases of vagrancy.
-                                   These can all be downloaded from their website. Their mapping standard are available here: https://www.iucnredlist.org/resources/mappingstandards"),
-                      a("IUCN. 2021. The IUCN Red List of Threatened Species. Version 2021-2.",href ="https://www.iucnredlist.org"),
-                      h2("Species Distribution Models (SDMs)"),
-                      p("The following published paper describes the methods used to produce the species distribution models, these are all available upon request, please contact nina-fb@outlook.com"),
+                      h1("Data sources", style = "font-size:30px;"),
+                      HTML("A wide variety of data collection methods can be used to gather spatial information on sharks and rays.
+                      <br>This site uses data from multiple sources including modelled ranges to accurate location data.
+                           <br> See below for a brief description of all data sources provided."),
+                      h2("International Union for the Conservation of Nature (IUCN) species ranges",style = "font-size:20px; text-decoration: underline;"),
+                      HTML("
+                      The IUCN provides a range map for several species which come in the form of polygons the encompass all known occurrences.
+                      <br> This range is formally defined as an <b>Extent of Occurrence (EOO)</b>:<br><br> <i>The area contained within the shortest continuous imaginary boundary<br>which can be drawn to encompass all the known,
+                      inferred or projected sites of present occurrence of a taxon,<br>excluding cases of vagrancy</i>.
+                          <br><br> The range maps used here can all be downloaded from their website and their mapping standards are also available:<br>"),
+                      a("IUCN mapping standards", href = "https://www.iucnredlist.org/resources/mappingstandards"),
+                      HTML("<br>"),
+                      a("IUCN Red List website", href = "https://www.iucnredlist.org"),
+                      HTML("<br><br> The IUCN range maps are continually changing as new assessments are being added and changed. The following paper describes the assessment process and mapping approach"),
+                      a("Dulvy, N. K., Pacoureau, N., Rigby, C. L., Pollom, R. A., Jabado, R. W., Ebert, D. A., Finucci, B., Pollock, C. M., Cheok, J., Derrick, D. H., Herman, K. B., Sherman, C. S., VanderWright, W. J., Lawson, J. M., Walls, R. H. L., Carlson, J. K., Charvet, P., Bineesh, K. K., Fernando, D., Ralph, G. M., Matsushiba, J. H., Hilton-Taylor, C., Fordham, S. V., & Simpfendorfer, C. A. (2021). Overfishing drives over one third of all sharks and rays toward a global extinction crisis. Current Biology, 31(21), P4773-4787.e4778. doi:https://doi.org/10.1016/j.cub.2021.08.062",href = "https://www.sciencedirect.com/science/article/pii/S0960982221011982"),
+                      h2("Species Distribution Models (SDMs)",style = "font-size:20px;text-decoration: underline;"),
+                      HTML("The following published paper describes the methods used to produce the species distribution models, these are all available upon request, please contact<b> nina-fb@outlook.com</b><br>"),
                       a("Faure-Beaulieu N.,(2023). A systematic conservation plan identifying critical areas for improved chondrichthyan protection in South Africa. Biological Conservation, 284, 110163. https://doi.org/10.1016/j.biocon.2023.110163",href ="https://doi.org/10.1016/j.biocon.2023.110163"),
-                      h2("Species illustrations"),
-                      p("All illustrations were kindly provided by Ann Hecht"),
-                      h2("Life-history information"),
+                      h2("Species illustrations",style = "font-size:20px;text-decoration: underline;"),
+                      HTML("All illustrations were kindly provided by Ann Hecht"),
+                      h2("Life-history information",style = "font-size:20px;text-decoration: underline;"),
                       a("Cliff, G. and Olbers, J.M. (Eds). 2022. Species profiles of South African sharks, rays and chimaeras. Volume 1: Threatened and Endemic Species. WILDTRUST Special Publication 2, Durban, South Africa. 556pp.",href ="https://sharksunderattackcampaign.co.za/wp-content/uploads/2023/03/2023_01_17_WILDOCEANS-endemic-and-threatened-sharks-species-reports.pdf"),
-                      h2("Occurrence data"),
-                      p("Below is a table of all datasets, data-owners and institutions who have contributed data to the site. If you have a dataset you would like to contribute please contact nina-fb@outlook.com"),
+                      h2("Occurrence data",style = "font-size:20px;text-decoration: underline;"),
+                      HTML("Location data has been provided by research institutions as well as individual researchers (listed at the bottom of this page). At a minimum for a species's location data to be included it must be accompanied by:"),
+                      HTML(
+                        "<ul>
+                        <li> A date
+                        <li> GPS coordinates
+                        <li> Species scientific name
+                        </ul>"
+                      ),
+                      HTML("Below is a table of all datasets, data-owners and institutions who have contributed data to the site.
+                           <br> If you have a dataset you would like to contribute please contact <b>nina-fb@outlook.com </b><br>"),
                       uiOutput("Providers"),
-                      uiOutput("Institutions")
+                      uiOutput("Institutions"),
+                      h1("Data Privacy and Data sharing", style = "font-size:30px;"),
+                      HTML("Sharing hard-earned datasets is a daunting prospect so it is important to know that this app does not allow for any dataset downloads." ,br(),
+                        "This platform is designed for the <b> visualization </b> of datasets provided.
+                        <br>Any queries regarding the use of these datasets can be directed to their respective owners listed above"),
+                      h1("Data resolution",style = "font-size:30px;"),
+                      HTML("This app currently displays data at a 10 x 10 km resolution. Please see the <b> species spatial information tab </b> to see how data is displayed.")
+                      
                )
              )),
+    ####### DATA TAB
     
-    # FIRST TAB
+    ####### MARINE PROTECTED AREAS TAB
     tabPanel("Marine Protected Areas",
              
-             # FIRST ROW
+             #######  FIRST ROW
              fluidRow(
                column(3,
                       h4(""),
-                      HTML("<h4><b4>This is an interactive map of South Africa's Marine Protected Area (MPA) network.<br><br>
+                      HTML("<font color='red'><b>IMPORTANT:</b> The map takes 1 to 2 min to load</font><br><br>"),
+                      HTML("<h4><b4>This is an interactive map of South Africa's<br>Marine Protected Area (MPA) network.<br><br>
                            Please refer to the definition boxes below for information on activities permitted in each zone.
-                           <br><br>You can also click to turn the two major zonation types (No-take and Mixed-use) on and off at the top right of the map.
-                           <br><br>Finally, If you scroll down to the bottom of this page, you can get the list of zone names for individual MPAs.</b></h4>"),
-                      h4(tags$b("Source of spatial information below:")),
+                           <br><br><b>Click at the top right corner of the map</b> and individually display the two major zonation types (No-take zones and Mixed-use zones).
+                           <br><br> <b>Scroll down to the bottom of this page</b> to select individual MPAs for a detailed view of their zonation</b></h4>"),
+                      h4(tags$b("Source of spatial information:")),
                       a("South Africa Marine Protected Area Zonations (SAMPAZ_OR_2023_Q2), Department of Environmental Affairs",href ="https://egis.environment.gov.za/data_egis/data_download/current")
                ),
-               column(9, align = "center", column(12,leafletOutput("mpas_sa",width = "80%", height = "50vh")
-                                                 # ,actionButton("resetButton", "Reset Zoom")
+               column(9, align = "center", column(12, leafletOutput("mpas_sa",width = "80%", height = "50vh")
+                                                 , actionButton("resetButton", "Reset Zoom")
                )
                
                )
              ),
+             #######  FIRST ROW
              
-             # NEW SECOND ROW
+             #######  SECOND ROW
              fluidRow(
                tags$head(
                  tags$style(
@@ -347,6 +355,9 @@ ui <- fluidPage(
                             HTML("<p> Fishing is permitted. Gear type: pelagic longline. Target species: specified in MPA gazette.</p>")
                         )))
              ),
+             #######  SECOND ROW
+             
+             #######  THIRD ROW
              fluidRow(
                column(width = 3,
                       br(), br(), br(), br(),
@@ -356,31 +367,46 @@ ui <- fluidPage(
                             HTML("<h4><b>Controlled Catch and Release</b></h4>"),
                             HTML("<p> Fishing is permitted. Gear type: linefishing using barbless hooks only. Target species: specified in MPA gazette. Important: All fish must be carefully handled and released alive and unharmed back into the water from which it was caught.</p>")
                         )))),
+             #######  THIRD ROW
              
-             # SECOND ROW
+             #######  FOURTH ROW
              fluidRow(
+               column(12,
+                      HTML("Select individual MPAs for a detailed view of their zonation.<br>The selected MPA will be highlighted by a white border</h4><br><br>"),
+                      ),
                column(4,  # list of MPA inputs
                       selectInput("filtermpa", 
                                   "Select an MPA:", 
                                   sort(unique(shapefile_data_simple$CUR_NME))))
              ),
-             
-             # THIRD ROW
+             #######  FOURTH ROW
+
+             #######  FIFTH ROW
              fluidRow( # row 2
                column(4, style='padding-left:10px; padding-right:10px; padding-top:10px; padding-bottom:10px',
                       #This is the mpa mpa
-                      leafletOutput("mpa_single")),
+                      leafletOutput("individual_mpa_zones")),
                column(8, DT::dataTableOutput("tabletest"))
-             )),
+             )
+             #######  FIFTH ROW
+             
+             ),
+    ####### MARINE PROTECTED AREAS TAB
     
-    # SECOND TAB
+    
+    ####### SHARKS AND RAYS IN SOUTH AFRICA - OVERVIEW TAB
     tabPanel("Sharks and Rays in South Africa - overview",
+             
+             #######  FIRST ROW
              # Create a new Row in the UI for selectInputs
              fluidRow(
                column(12,
                       h4(""),
                       HTML("<h4><b4> Below is a list of all 194 species found in South Africa.<br>The information used to create this table has come from different sources and is referenced at the bottom of the page.<br>For each species, information on its IUCN Red List status as well as endemic status is provided.</b></h4>")
                )),
+             #######  FIRST ROW
+             
+             #######  SECOND ROW
              fluidRow(
                column(4,
                       selectInput("group",
@@ -400,9 +426,13 @@ ui <- fluidPage(
                                   c("All","Southern Africa","South Africa","Not endemic"))
                )
              ),
+             #######  SECOND ROW
+             
+             #######  THIRD ROW
              DT::dataTableOutput("table"),
+             #######  THIRD ROW
              
-             
+             #######  FOURTH ROW
              fluidRow(
                column(12,
                       h4(""),
@@ -414,11 +444,15 @@ ui <- fluidPage(
                       HTML("<p>IUCN ranges:<p>"),
                       a("IUCN. 2021. The IUCN Red List of Threatened Species. Version 2021-2.",href ="https://www.iucnredlist.org")
                ))
+             #######  FOURTH ROW
+             
     ),
+    ####### SHARKS AND RAYS IN SOUTH AFRICA - OVERVIEW TAB
     
-    # THIRD TAB
+    ####### MPA SPECIES LIST TAB
     tabPanel("MPA species list", 
              
+             #######  FIRST ROW
              fluidRow(
                column(12,
                       h4(""),
@@ -428,35 +462,29 @@ ui <- fluidPage(
                       <br><br><b>IMPORTANT:</b> This does not represent a complete and comprehensive list of species for an MPA, but is rather meant to show the most recent (or provided) sighting information in a any particular MPA</h4>")
                       
                )),
+             #######  FIRST ROW
              
+             #######  SECOND ROW
              fluidRow(
                column(3,# list of MPA inputs
                       selectizeInput("selectmpa2",
                                      "Select an MPA:",c(sort(unique(shapefile_data_simple$CUR_NME))),
                                      options = list(placeholder = 'Select an MPA', onInitialize = I('function() { this.setValue(""); }'))
                       ))),
+             #######  SECOND ROW
              
-             
+             #######  THIRD ROW
              fluidRow( # row 2
                column(3, style='padding-left:10px; padding-right:10px; padding-top:10px; padding-bottom:10px',
                       #This is the mpa
-                      leafletOutput("mpa_single2")),
+                      leafletOutput("mpa_specieslist_tab")),
                column(9,DT::dataTableOutput("species_permpa")),
                style = "margin-bottom: 20px;" 
                
              ),
+             #######  THIRD ROW
              
-             fluidRow( # row 3
-               column(3,# list of species
-                      selectizeInput("select_a_species",
-                                     "Select a species:",
-                                     c(sort(unique(compiled_species_list$`Scientific name`))),options = list(
-                                       placeholder = 'Select a species',
-                                       onInitialize = I('function() { this.setValue(""); }')
-                                     ))),
-               column(9,DT::dataTableOutput("mpas_perspecies")),
-               style = "margin-bottom: 20px;"),
-             
+             #######  FOURTH ROW
              fluidRow(
                column(12,
                       h4(""),
@@ -467,10 +495,16 @@ ui <- fluidPage(
                       a("Faure-Beaulieu N.,(2023). A systematic conservation plan identifying critical areas for improved chondrichthyan protection in South Africa. Biological Conservation, 284, 110163. https://doi.org/10.1016/j.biocon.2023.110163",href ="https://doi.org/10.1016/j.biocon.2023.110163"),
                       HTML("<p>IUCN ranges:<p>"),
                       a("IUCN. 2021. The IUCN Red List of Threatened Species. Version 2021-2.",href ="https://www.iucnredlist.org")
-               ))),
+               ))
+             #######  FOURTH ROW
+    ),
+    ####### MPA SPECIES LIST TAB
     
-    # FOURTH TAB
+    
+    ####### SPECIES SPATIAL INFORMATION TAB
     tabPanel("Species spatial information", 
+             
+             #######  FIRST ROW
              fluidRow(
                column(12,
                       h4(""),
@@ -480,12 +514,19 @@ ui <- fluidPage(
                              <br><br><b>IMPORTANT:</b> This does not represent the complete set of occurrence data for this species, but is rather meant to show the most recent (or provided) sighting information for a species occurrence in a any particular cell </b></h4>")
                       
                )),
+             #######  FIRST ROW
+             
+             #######  SECOND ROW
+             
              fluidRow(column(4,selectizeInput("selectspecies", h4("Select a species"),choices = sort(str_to_sentence(unique(overlap_shortened$SPECIES_SCIENTIFIC))), multiple=FALSE, 
                                               options = list(
                                                 placeholder = 'Please select a species',
                                                 onInitialize = I('function() { this.setValue(""); }')
                                               ))
              )),
+             #######  SECOND ROW
+             
+             #######  THIRD ROW
              fluidRow(align = "center",
                       
                       column(2, # Adjust the column width as needed
@@ -496,6 +537,22 @@ ui <- fluidPage(
                       column(10,leafletOutput("rasters_sa", width = "80%", height = "50vh"),
                              actionButton("resetButton2", "Reset Zoom")
                       )),
+             #######  THIRD ROW
+             
+             #######  FOURTH ROW
+             fluidRow( # row 3
+               column(3,# list of species
+                      selectizeInput("select_a_species",
+                                     "Select a species:",
+                                     c(sort(unique(compiled_species_list$`Scientific name`))),options = list(
+                                       placeholder = 'Select a species',
+                                       onInitialize = I('function() { this.setValue(""); }')
+                                     ))),
+               column(9,DT::dataTableOutput("mpas_perspecies")),
+               style = "margin-bottom: 20px;"),
+             #######  FOURTH ROW
+             
+             #######  FIFTH ROW
              # life history information and species images
              fluidRow(
                column(4,
@@ -503,10 +560,16 @@ ui <- fluidPage(
                                   "Select a species:",
                                   choices = sort(str_to_sentence(unique(overlap_shortened$SPECIES_SCIENTIFIC)))
                       ))),
+             #######  FIFTH ROW
+             
+             #######  SIXTH ROW
              fluidRow(align = "left",
                       column(4,imageOutput("display_illustration")),
                       column(8,DT::dataTableOutput("species_LH"))
              ),
+             #######  SIXTH ROW
+             
+             #######  SEVENTH ROW
              fluidRow(
                column(12,
                       h4(""),
@@ -520,8 +583,16 @@ ui <- fluidPage(
                       HTML("<p><b>IUCN ranges:</b><p>"),
                       a("IUCN. 2021. The IUCN Red List of Threatened Species. Version 2021-2.",href ="https://www.iucnredlist.org")
                ))
+             #######  SEVENTH ROW
+             
     ),
-    tabPanel("Contact-Suggestions-Comments",
+    ####### SPECIES SPATIAL INFORMATION TAB
+    
+    
+    ####### QUERIES TAB
+    
+    #######  FIRST ROW
+    tabPanel("Queries",
              fluidRow(
                column(width = 2),
                column(width = 8,
@@ -535,7 +606,10 @@ ui <- fluidPage(
                       
                )       
              )
+             #######  FIRST ROW
+             
     )
+    ####### QUERIES TAB
     
   ),
   # Add inline CSS rule to align legend items to the left
@@ -543,12 +617,13 @@ ui <- fluidPage(
 )
 #####################  DEFINING THE UI (USER INTERFACE)
 
+
 #####################  DEFINING THE SERVER LOGIC
 # Define server logic
 server <- function(input, output,session) {
   
   
-  shinyalert("Hello! Please read:", "Please note that this app is in development and maps take about 5min to appear", type = "info")
+  #shinyalert("Hello! Please read:", "Please note that this app is in development and maps take about 5min to appear", type = "info")
   
   # HOME TAB
   output$Providers <-  renderUI({
@@ -570,7 +645,6 @@ server <- function(input, output,session) {
   # FIRST TAB
   output$mpas_sa <- renderLeaflet({
     sa_map
-      
   })
   
   # Reset the map bounds when the button is clicked
@@ -578,9 +652,10 @@ server <- function(input, output,session) {
     leafletProxy("mpas_sa") %>% fitBounds(initialBounds$lng1, initialBounds$lat1, initialBounds$lng2, initialBounds$lat2)
   })
   
+  
   # FIRST TAB
   # this looks for the MPA outline
-  output$mpa_single <- renderLeaflet({
+  output$individual_mpa_zones <- renderLeaflet({
     
     # extract single mpa
     single_mpa = shapefile_data_simple[which(shapefile_data_simple$CUR_NME == input$filtermpa),]
@@ -590,16 +665,17 @@ server <- function(input, output,session) {
     # get all other mpas to add thin opaque layer above them
     mpa_single = shapefile_data_simple[which(shapefile_data_simple$CUR_NME == input$filtermpa),]
     
-    sa_map%>%
-      setView(mpa_centroid[1],mpa_centroid[2],8) 
-    addPolylines(data = contours,weight = 1, color = "grey",label = ~DEPTH,popup = ~DEPTH,fillOpacity = 0)%>%
-    addPolygons(data = mpa_single,fillColor = "white",color = "white", opacity =1) %>%
-    addPolygons(data = notake,weight = 1,label = ~CUR_ZON_NM, color = "Blue",fillColor = "skyblue",fillOpacity = 0.6 )%>%
-    addPolygons(data = ccr,weight = 1,label = ~CUR_ZON_NM, color = "green4",fillColor = "green",fillOpacity = 0.6 )%>%
-    addPolygons(data =c,weight = 1,label = ~CUR_ZON_NM,fillColor = "purple",fillOpacity = 0.6 )%>%
-    addPolygons(data = cpl,weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "hotpink",fillOpacity = 0.6 )%>%
-    addPolygons(data = clp,weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "lightpink",fillOpacity = 0.6 )
-    
+    leaflet()%>%
+      addTiles()%>%
+      addPolygons(data = mpa_single,fillColor = "white",color = "white", opacity =1) %>%
+      addPolygons(data = notake,weight = 1,label = ~CUR_ZON_NM, color = "Blue",fillColor = "skyblue",fillOpacity = 0.6 )%>%
+      addPolygons(data = ccr,weight = 1,label = ~CUR_ZON_NM, color = "green4",fillColor = "green",fillOpacity = 0.6 )%>%
+      addPolygons(data =c,weight = 1,label = ~CUR_ZON_NM,fillColor = "purple",fillOpacity = 0.6 )%>%
+      addPolygons(data = cpl,weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "hotpink",fillOpacity = 0.6 )%>%
+      addPolygons(data = clp,weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "lightpink",fillOpacity = 0.6 )%>%
+      setView(mpa_centroid[1],mpa_centroid[2],8) %>%
+      addPolylines(data = contours,weight = 1, color = "grey",label = ~DEPTH,popup = ~DEPTH,fillOpacity = 0)
+      
     
   })
   
@@ -644,7 +720,7 @@ server <- function(input, output,session) {
     
   })
   
-  # SECOND TAB
+  # Species spatial information tab
   # Create a reactive that dynamically changes the illustration source
   selected_illustration <- reactive({
     selected_value <- input$illustration
@@ -669,7 +745,7 @@ server <- function(input, output,session) {
     
   })
   
-  # THIRD TAB
+  # SPECIES LIST TAB
   # SPECIES PER MPA
   output$species_permpa <- DT::renderDataTable({
     
@@ -690,7 +766,33 @@ server <- function(input, output,session) {
       )
   }) 
   
-  # THIRD TAB
+  # SPECIES LIST TAB
+  # this looks for the MPA outline
+  output$mpa_specieslist_tab <- renderLeaflet({
+    
+    # extract single mpa
+    single_mpa = shapefile_data_simple[which(shapefile_data_simple$CUR_NME == input$selectmpa2),]
+    # extract centroid for that mpa
+    mpa_centroid = st_centroid(st_union(single_mpa))
+    mpa_centroid = unlist(mpa_centroid)
+    # get all other mpas to add thin opaque layer above them
+    mpa_single = shapefile_data_simple[which(shapefile_data_simple$CUR_NME == input$selectmpa2),]
+    
+    leaflet()%>%
+      addTiles()%>%
+      addPolygons(data = mpa_single,fillColor = "white",color = "white", opacity =1) %>%
+      addPolygons(data = notake,weight = 1,label = ~CUR_ZON_NM, color = "Blue",fillColor = "skyblue",fillOpacity = 0.6 )%>%
+      addPolygons(data = ccr,weight = 1,label = ~CUR_ZON_NM, color = "green4",fillColor = "green",fillOpacity = 0.6 )%>%
+      addPolygons(data =c,weight = 1,label = ~CUR_ZON_NM,fillColor = "purple",fillOpacity = 0.6 )%>%
+      addPolygons(data = cpl,weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "hotpink",fillOpacity = 0.6 )%>%
+      addPolygons(data = clp,weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "lightpink",fillOpacity = 0.6 )%>%
+      setView(mpa_centroid[1],mpa_centroid[2],8) %>%
+      addPolylines(data = contours,weight = 1, color = "grey",label = ~DEPTH,popup = ~DEPTH,fillOpacity = 0)
+    
+    
+  })
+  
+  # SPECIES SPATIAL INFORMATION TAB
   # MPAS PER SPECIES
   output$mpas_perspecies <- DT::renderDataTable({
     
@@ -712,32 +814,6 @@ server <- function(input, output,session) {
     datatable(temp, filter = "top", options = list(pageLength=50,autoWidth=TRUE,searching=TRUE))
   }) 
   
-  # FIRST TAB
-  # this looks for the MPA outline
-  output$mpa_single2 <- renderLeaflet({
-    
-    # extract single mpa
-    single_mpa = shapefile_data_simple[which(shapefile_data_simple$CUR_NME == input$selectmpa2),]
-    # extract centroid for that mpa
-    mpa_centroid = st_centroid(st_union(single_mpa))
-    mpa_centroid = unlist(mpa_centroid)
-    # get all other mpas to add thin opaque layer above them
-    mpa_single = shapefile_data_simple[which(shapefile_data_simple$CUR_NME == input$selectmpa2),]
-    
-    mpa_single <- leaflet() %>%
-      addProviderTiles("CartoDB.Positron") %>%
-      setView(mpa_centroid[1],mpa_centroid[2],8) %>%
-      addPolygons(data = mpa_single,fillColor = "white",color = "white", opacity =1) %>%
-      addPolygons(data = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Restricted","Sanctuary","Wilderness")),],weight = 1,label = ~CUR_ZON_NM, color = "Blue",fillColor = "skyblue",fillOpacity = 0.6 )%>%
-      addPolygons(data = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled Catch and Release")),],weight = 1,label = ~CUR_ZON_NM, color = "green4",fillColor = "green",fillOpacity = 0.6 )%>%
-      addPolygons(data = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled")),],weight = 1,label = ~CUR_ZON_NM,fillColor = "purple",fillOpacity = 0.6 )%>%
-      addPolygons(data = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled-Pelagic Linefish with list")),],weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "hotpink",fillOpacity = 0.6 )%>%
-      addPolygons(data = shapefile_data_simple[which(shapefile_data_simple$CUR_ZON_TY %in% c("Controlled Large Pelagic")),],weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "lightpink",fillOpacity = 0.6 )
-    #addLegend("bottomleft",title = "Zone Types", colors = c("skyblue","purple","hotpink","lightpink","green"), opacity = 1,
-    #        labels = c("Wilderness, Sanctuary or Restricted (No-take zones)","Controlled (Mixed-use zones)","Controlled-Pelagic Linefish with List (Mixed-use zones)","Controlled Large Pelagic (Mixed-use zones)","Controlled Catch and Release (Mixed-use zone, only in iSimangaliso)"))
-    
-    
-  })
   
   # FOURTH TAB
   output$rasters_sa <- renderLeaflet({
