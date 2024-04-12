@@ -31,11 +31,11 @@ library(readxl)
 library(flextable)
 library(shinyalert)
 library(feather)
-library(mapboxer)
-library(plotly)
+#library(mapboxer)
+#library(plotly)
 
 # map box token
-Sys.setenv('MAPBOX_TOKEN' = 'pk.eyJ1IjoibmluenlmYiIsImEiOiJjbHVxc3NzcjYwMXVkMnNxcWpjcGxpZHU0In0.e91nxemBTH3tAcwtoAroIw')
+#Sys.setenv('MAPBOX_TOKEN' = 'pk.eyJ1IjoibmluenlmYiIsImEiOiJjbHVxc3NzcjYwMXVkMnNxcWpjcGxpZHU0In0.e91nxemBTH3tAcwtoAroIw')
 
 ##################### IUCN COLORS
 # Define a color palette for each IUCN Red List status
@@ -295,7 +295,7 @@ ui <- fluidPage(
                       h4(tags$b("Source of spatial information below:")),
                       a("South Africa Marine Protected Area Zonations (SAMPAZ_OR_2023_Q2), Department of Environmental Affairs",href ="https://egis.environment.gov.za/data_egis/data_download/current")
                ),
-               column(9, align = "center", column(12,plotlyOutput("mpas_sa",width = "80%", height = "50vh")
+               column(9, align = "center", column(12,leafletOutput("mpas_sa",width = "80%", height = "50vh")
                                                  # ,actionButton("resetButton", "Reset Zoom")
                )
                
@@ -568,8 +568,8 @@ server <- function(input, output,session) {
   output$Institutions <-  renderUI({htmltools_value(institutions)})
   
   # FIRST TAB
-  output$mpas_sa <- renderPlotly({
-    plot_mapbox(eez_sa)
+  output$mpas_sa <- renderLeaflet({
+    sa_map
       
   })
   
@@ -592,13 +592,13 @@ server <- function(input, output,session) {
     
     sa_map%>%
       setView(mpa_centroid[1],mpa_centroid[2],8) 
-    #addPolylines(data = contours,weight = 1, color = "grey",label = ~DEPTH,popup = ~DEPTH,fillOpacity = 0)%>%
-    #addPolygons(data = mpa_single,fillColor = "white",color = "white", opacity =1) %>%
-    #addPolygons(data = notake,weight = 1,label = ~CUR_ZON_NM, color = "Blue",fillColor = "skyblue",fillOpacity = 0.6 )%>%
-    #addPolygons(data = ccr,weight = 1,label = ~CUR_ZON_NM, color = "green4",fillColor = "green",fillOpacity = 0.6 )%>%
-    #addPolygons(data =c,weight = 1,label = ~CUR_ZON_NM,fillColor = "purple",fillOpacity = 0.6 )%>%
-    #addPolygons(data = cpl,weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "hotpink",fillOpacity = 0.6 )%>%
-    #addPolygons(data = clp,weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "lightpink",fillOpacity = 0.6 )
+    addPolylines(data = contours,weight = 1, color = "grey",label = ~DEPTH,popup = ~DEPTH,fillOpacity = 0)%>%
+    addPolygons(data = mpa_single,fillColor = "white",color = "white", opacity =1) %>%
+    addPolygons(data = notake,weight = 1,label = ~CUR_ZON_NM, color = "Blue",fillColor = "skyblue",fillOpacity = 0.6 )%>%
+    addPolygons(data = ccr,weight = 1,label = ~CUR_ZON_NM, color = "green4",fillColor = "green",fillOpacity = 0.6 )%>%
+    addPolygons(data =c,weight = 1,label = ~CUR_ZON_NM,fillColor = "purple",fillOpacity = 0.6 )%>%
+    addPolygons(data = cpl,weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "hotpink",fillOpacity = 0.6 )%>%
+    addPolygons(data = clp,weight = 1,label = ~CUR_ZON_NM, color = "Purple",fillColor = "lightpink",fillOpacity = 0.6 )
     
     
   })
