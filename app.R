@@ -1,7 +1,6 @@
-# packages
+##################### PACKAGES
 library(leaflet)
 library(leafpop)
-library(tidyverse)
 library(shinythemes)
 library(reactable)
 library(stringr)
@@ -17,6 +16,7 @@ library(shinyalert)
 library(feather)
 #library(mapboxer)
 #library(plotly)
+##################### PACKAGES
 
 # map box token
 #Sys.setenv('MAPBOX_TOKEN' = 'pk.eyJ1IjoibmluenlmYiIsImEiOiJjbHVxc3NzcjYwMXVkMnNxcWpjcGxpZHU0In0.e91nxemBTH3tAcwtoAroIw')
@@ -262,6 +262,8 @@ ui <- fluidPage(
                       h2("Species illustrations",style = "font-size:20px;text-decoration: underline;"),
                       HTML("All illustrations were kindly provided by Ann Hecht"),
                       h2("Life-history information",style = "font-size:20px;text-decoration: underline;"),
+                      HTML("The following report has compiled all available life-history and distributional information on threatened and endemic species in South Africa.<br>
+                           Information includes scientific and common names, Family, size range, distribution, habitat, depth range, major fisheries, IUCN status, CITES regulations, MLRA regulations, Compiler name, Reviewer name, Species Summary and Recommendations, Taxonomic and Identifcation Issues and more.<br>"),
                       a("Cliff, G. and Olbers, J.M. (Eds). 2022. Species profiles of South African sharks, rays and chimaeras. Volume 1: Threatened and Endemic Species. WILDTRUST Special Publication 2, Durban, South Africa. 556pp.",href ="https://sharksunderattackcampaign.co.za/wp-content/uploads/2023/03/2023_01_17_WILDOCEANS-endemic-and-threatened-sharks-species-reports.pdf"),
                       h2("Occurrence data",style = "font-size:20px;text-decoration: underline;"),
                       HTML("Location data has been provided by research institutions as well as individual researchers (listed at the bottom of this page). At a minimum for a species's location data to be included it must be accompanied by:"),
@@ -273,7 +275,7 @@ ui <- fluidPage(
                         </ul>"
                       ),
                       HTML("Below is a table of all datasets, data-owners and institutions who have contributed data to the site.
-                           <br> If you have a dataset you would like to contribute please contact <b>nina-fb@outlook.com </b><br>"),
+                           <br> If you have a dataset you would like to contribute please contact <b>sharksraysmpas@gmail.com</b><br>"),
                       uiOutput("Providers"),
                       uiOutput("Institutions"),
                       h1("Data Privacy and Data sharing", style = "font-size:30px;"),
@@ -294,7 +296,7 @@ ui <- fluidPage(
              fluidRow(
                column(3,
                       h4(""),
-                      HTML("<font color='red'><b>IMPORTANT:</b> The map takes 1 to 2 min to load</font><br><br>"),
+                      HTML("<font color='red'><b>IMPORTANT:</b> The map takes 1 to 3 minutes to load</font><br><br>"),
                       HTML("<h4><b4>This is an interactive map of South Africa's<br>Marine Protected Area (MPA) network.<br><br>
                            Please refer to the definition boxes below for information on activities permitted in each zone.
                            <br><br><b>Click at the top right corner of the map</b> and individually display the two major zonation types (No-take zones and Mixed-use zones).
@@ -432,22 +434,9 @@ ui <- fluidPage(
              DT::dataTableOutput("table"),
              #######  THIRD ROW
              
-             #######  FOURTH ROW
-             fluidRow(
-               column(12,
-                      h4(""),
-                      HTML("<h4><b4>Sources of information:</b></h4>"),
-                      HTML("<p>Species life-history information:<p>"),
-                      a("Cliff, G. and Olbers, J.M. (Eds). 2022. Species profiles of South African sharks, rays and chimaeras. Volume 1: Threatened and Endemic Species. WILDTRUST Special Publication 2, Durban, South Africa. 556pp.",href ="https://sharksunderattackcampaign.co.za/wp-content/uploads/2023/03/2023_01_17_WILDOCEANS-endemic-and-threatened-sharks-species-reports.pdf"),
-                      HTML("<p>Species Distribution Models:<p>"),
-                      a("Faure-Beaulieu N.,(2023). A systematic conservation plan identifying critical areas for improved chondrichthyan protection in South Africa. Biological Conservation, 284, 110163. https://doi.org/10.1016/j.biocon.2023.110163",href ="https://doi.org/10.1016/j.biocon.2023.110163"),
-                      HTML("<p>IUCN ranges:<p>"),
-                      a("IUCN. 2021. The IUCN Red List of Threatened Species. Version 2021-2.",href ="https://www.iucnredlist.org")
-               ))
-             #######  FOURTH ROW
-             
     ),
     ####### SHARKS AND RAYS IN SOUTH AFRICA - OVERVIEW TAB
+    
     
     ####### MPA SPECIES LIST TAB
     tabPanel("MPA species list", 
@@ -456,7 +445,7 @@ ui <- fluidPage(
              fluidRow(
                column(12,
                       h4(""),
-                      HTML("<h4>Use the dropdown below to get a list of species per Marine Protected Area. Alternatively, scroll down to get a list of MPAs per species.
+                      HTML("<h4>Use the dropdown below to get a list of species per Marine Protected Area.
                       <br><br>The list is built by using <b>three</b> different sources of information to assess the presence of a species within the MPA:<br>1. Species Distribution Models<br>2. IUCN Red List Ranges<br>3. True occurrence records from verified research sources
                       <br><br> Rows highlighted in green are species with confirmed presences in the MPA. The most recent sighting as well as data source is provided
                       <br><br><b>IMPORTANT:</b> This does not represent a complete and comprehensive list of species for an MPA, but is rather meant to show the most recent (or provided) sighting information in a any particular MPA</h4>")
@@ -483,20 +472,6 @@ ui <- fluidPage(
                
              ),
              #######  THIRD ROW
-             
-             #######  FOURTH ROW
-             fluidRow(
-               column(12,
-                      h4(""),
-                      HTML("<h4><b4>Sources of information:</b></h4>"),
-                      HTML("<p>Species Occurence data:<p>"),
-                      HTML("Please see About (Data) on the home page for a list of data providers"),
-                      HTML("<p>Species Distribution Models:<p>"),
-                      a("Faure-Beaulieu N.,(2023). A systematic conservation plan identifying critical areas for improved chondrichthyan protection in South Africa. Biological Conservation, 284, 110163. https://doi.org/10.1016/j.biocon.2023.110163",href ="https://doi.org/10.1016/j.biocon.2023.110163"),
-                      HTML("<p>IUCN ranges:<p>"),
-                      a("IUCN. 2021. The IUCN Red List of Threatened Species. Version 2021-2.",href ="https://www.iucnredlist.org")
-               ))
-             #######  FOURTH ROW
     ),
     ####### MPA SPECIES LIST TAB
     
@@ -508,16 +483,19 @@ ui <- fluidPage(
              fluidRow(
                column(12,
                       h4(""),
-                      HTML("<h4><b4>This is an interactive map displaying spatial information for South Africa's shark and ray species.<br><br>
-                           Data available for the species is currently shown at a <b>10 x 10 km resolution</b>. This means that the species occurrance record is located somewhere within the 10 x 10 km cell.
-                           <br><br> For information on the most recent sighting within that cell, <b>click on the cell</b> and the date as well as data type and owner will be shown. The darker the green the more recent the sighting.
-                             <br><br><b>IMPORTANT:</b> This does not represent the complete set of occurrence data for this species, but is rather meant to show the most recent (or provided) sighting information for a species occurrence in a any particular cell </b></h4>")
-                      
+                      HTML("<h4><b4>This is an interactive map displaying spatial information for South Africa's shark and ray species.<br>
+                      Select a species and a map will appear showing all available spatial information for this species, these layers can all be turned on or of and include:
+                       <ul>
+                          <li> <font color='#FFCC00'>The IUCN range</font>
+                          <li> <font color='green'>Occurrence data at 10 x 10 km resolution</font>
+                          <li> <font color='red'>Species Distribution Model (SDM)</font>
+                       </ul>
+                       <br>If occurrences are available, <b>click on any of the green cells</b> and the date as well as data type and owner will appear. The darker the green the more recent the sighting.
+                       <br><br><b>IMPORTANT:</b><br> This does not represent the complete set of occurrence data for the selected species, but is rather meant to show the most recent (or provided) sighting information for a species occurrence in a any particular cell </b></h4>")
                )),
              #######  FIRST ROW
              
              #######  SECOND ROW
-             
              fluidRow(column(4,selectizeInput("selectspecies", h4("Select a species"),choices = sort(str_to_sentence(unique(overlap_shortened$SPECIES_SCIENTIFIC))), multiple=FALSE, 
                                               options = list(
                                                 placeholder = 'Please select a species',
@@ -540,19 +518,21 @@ ui <- fluidPage(
              #######  THIRD ROW
              
              #######  FOURTH ROW
-             fluidRow( # row 3
-               column(3,# list of species
-                      selectizeInput("select_a_species",
-                                     "Select a species:",
-                                     c(sort(unique(compiled_species_list$`Scientific name`))),options = list(
-                                       placeholder = 'Select a species',
-                                       onInitialize = I('function() { this.setValue(""); }')
-                                     ))),
-               column(9,DT::dataTableOutput("mpas_perspecies")),
-               style = "margin-bottom: 20px;"),
+             fluidRow(
+               column(12,
+                      h4(""),
+                      HTML("<h4><br><br>The table below displays all Marine Protected Areas (MPAs) which overlap with any of the three forms of data for the selected species (Ocurrences, IUCN range, species distribution models (SDMs))</h4><br><br>")
+               )),
              #######  FOURTH ROW
              
              #######  FIFTH ROW
+             fluidRow(
+              column(width = 1),
+              column(DT::dataTableOutput("mpas_perspecies"), width = 10),
+              column(width = 1)),
+             #######  FIFTH ROW
+             
+             #######  SIXTH ROW
              # life history information and species images
              fluidRow(
                column(4,
@@ -560,32 +540,15 @@ ui <- fluidPage(
                                   "Select a species:",
                                   choices = sort(str_to_sentence(unique(overlap_shortened$SPECIES_SCIENTIFIC)))
                       ))),
-             #######  FIFTH ROW
-             
              #######  SIXTH ROW
+             
+             #######  SEVENTH ROW
              fluidRow(align = "left",
                       column(4,imageOutput("display_illustration")),
                       column(8,DT::dataTableOutput("species_LH"))
              ),
-             #######  SIXTH ROW
-             
              #######  SEVENTH ROW
-             fluidRow(
-               column(12,
-                      h4(""),
-                      HTML("<h4><b4>Sources of information:</b></h4>"),
-                      HTML("<p><b>Shark and Ray Illustrations:</b><p>"),
-                      HTML("All illustrations were kindly provided by Ann Hecht"),
-                      HTML("<p><b>Species Occurence data:</b><p>"),
-                      HTML("Please see About (Data) on the home page for a list of data providers"),
-                      HTML("<p><b>Species Distribution Models:</b><p>"),
-                      a("Faure-Beaulieu N.,(2023). A systematic conservation plan identifying critical areas for improved chondrichthyan protection in South Africa. Biological Conservation, 284, 110163. https://doi.org/10.1016/j.biocon.2023.110163",href ="https://doi.org/10.1016/j.biocon.2023.110163"),
-                      HTML("<p><b>IUCN ranges:</b><p>"),
-                      a("IUCN. 2021. The IUCN Red List of Threatened Species. Version 2021-2.",href ="https://www.iucnredlist.org")
-               ))
-             #######  SEVENTH ROW
-             
-    ),
+               ),
     ####### SPECIES SPATIAL INFORMATION TAB
     
     
@@ -597,7 +560,7 @@ ui <- fluidPage(
                column(width = 2),
                column(width = 8,
                       h1("Reporting Issues"),
-                      p("The information presented on this site should be accurate. To report anything that seems inaccurate or wrong please email nina-fb@outlook.com"),
+                      p("The information presented on this site should be accurate. To report anything that seems inaccurate or wrong please email <b>sharksraysmpas@gmail.com</b>"),
                       h1("Suggesting changes or features"),
                       HTML("The code used to build this site is available on a github page.
                       This page also has an <b>issues tab</b> which allows users to log any suggestions such as additional features, ways of showing the data, graphs, tables etc...<br><br>
@@ -622,8 +585,7 @@ ui <- fluidPage(
 # Define server logic
 server <- function(input, output,session) {
   
-  
-  #shinyalert("Hello! Please read:", "Please note that this app is in development and maps take about 5min to appear", type = "info")
+  shinyalert("Hello! Please read:", "Please note that this app is in development and maps take about 1-3 minutes to appear", type = "info")
   
   # HOME TAB
   output$Providers <-  renderUI({
@@ -797,7 +759,7 @@ server <- function(input, output,session) {
   output$mpas_perspecies <- DT::renderDataTable({
     
     temp = compiled_species_list  %>%
-      filter(`Scientific name` == input$select_a_species)
+      filter(`Scientific name` == input$selectspecies)
     
     temp$`Scientific name` = NULL
     temp$`Common name` = NULL
