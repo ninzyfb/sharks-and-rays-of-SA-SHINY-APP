@@ -52,6 +52,7 @@ icon_blue <- makeIcon(
   iconWidth = 32,  # Adjust the width and height as needed
   iconHeight = 32
 )
+
 ##################### ICONS
 
 
@@ -167,6 +168,9 @@ compiled_species_list = read_feather(list.files(pattern = "compiled_species_list
 
 ##################### PREPARE MASTER TABLE FOR FIRST PAGE
 overlap_shortened = read_feather(list.files(pattern = "overlap_shortened",recursive=TRUE,full.names=TRUE))
+overlap_shortened = left_join(overlap_shortened,master[,1:2])
+overlap_shortened$combined_name = paste0(overlap_shortened$SPECIES_SCIENTIFIC," (",overlap_shortened$Species_common,")")
+overlap_shortened$Species_common = NULL
 ##################### PREPARE MASTER TABLE FOR FIRST PAGE
 
 
@@ -497,25 +501,31 @@ ui <- fluidPage(
              #######  FIRST ROW
              
              #######  SECOND ROW
-             fluidRow(column(4,selectizeInput("selectspecies", h4("Select a species"),choices = sort(str_to_sentence(unique(overlap_shortened$SPECIES_SCIENTIFIC))), multiple=FALSE, 
+             fluidRow(
+               column(4,selectizeInput("selectspecies", h4("Select a species (you can also type in search bar)"),choices = sort(str_to_sentence(unique(overlap_shortened$SPECIES_SCIENTIFIC))), multiple=FALSE, 
                                               options = list(
                                                 placeholder = 'Please select a species',
                                                 onInitialize = I('function() { this.setValue(""); }')
                                               ))
-             )),
+             )
+             ),
              #######  SECOND ROW
              
              #######  THIRD ROW
-             fluidRow(align = "center",
+             fluidRow(align = "left",
                       
                       column(2, # Adjust the column width as needed
                              # Text
                              HTML("<h4><b>West/East extents<br>(from occurrences)</b></h4>"),
                              # Image
                              div(img(src = "boundary_cross.png"))),
-                      column(10,leafletOutput("rasters_sa", width = "80%", height = "50vh"),
-                             actionButton("resetButton2", "Reset Zoom")
-                      )),
+                      column(2, # Adjust the column width as needed
+                             # Text
+                             HTML("<h4><b>West/East extents<br>(from SA database)</b></h4>"),
+                             # Image
+                             div(img(src = "blue_pin.png")))),
+             fluidRow(align = "center",leafletOutput("rasters_sa", width = "80%", height = "50vh"),
+                      actionButton("resetButton2", "Reset Zoom")),
              #######  THIRD ROW
              
              #######  FOURTH ROW
@@ -615,7 +625,6 @@ server <- function(input, output,session) {
     leafletProxy("mpas_sa") %>% fitBounds(initialBounds$lng1, initialBounds$lat1, initialBounds$lng2, initialBounds$lat2)
   })
   
-  
   # FIRST TAB
   # this looks for the MPA outline
   output$individual_mpa_zones <- renderLeaflet({
@@ -708,7 +717,7 @@ server <- function(input, output,session) {
     
   })
   
-  # SPECIES LIST TAB
+  # MPA SPECIES LIST TAB
   # SPECIES PER MPA
   output$species_permpa <- DT::renderDataTable({
     
@@ -729,7 +738,7 @@ server <- function(input, output,session) {
       )
   }) 
   
-  # SPECIES LIST TAB
+  # MPA SPECIES LIST TAB
   # this looks for the MPA outline
   output$mpa_specieslist_tab <- renderLeaflet({
     
@@ -759,7 +768,7 @@ server <- function(input, output,session) {
   # MPAS PER SPECIES
   output$mpas_perspecies <- DT::renderDataTable({
     
-    temp = compiled_species_list  %>%
+   temp = compiled_species_list  %>%
       filter(`Scientific name` == input$selectspecies)
     
     temp$`Scientific name` = NULL
@@ -781,7 +790,7 @@ server <- function(input, output,session) {
   # FOURTH TAB
   output$rasters_sa <- renderLeaflet({
     
-    if(input$selectspecies != ""){
+     if(input$selectspecies != ""){
       
       # extract raster
       names_all = str_replace(names(all_distributions),"\\."," ")
