@@ -14,6 +14,7 @@ library(readxl)
 library(flextable)
 library(shinyalert)
 library(feather)
+library(rmapshaper)
 #library(mapboxer)
 #library(plotly)
 ##################### PACKAGES
@@ -60,7 +61,7 @@ mpa_data_overview = readRDS(list.files(pattern = "mpa_data_overview.RDS",recursi
 
 
 ##################### EEZ DATA
-eez_sa = st_read(list.files(pattern = "eez.shp",recursive = TRUE, full.names = TRUE))
+eez_sa =  ms_simplify(st_read(list.files(pattern = "eez.shp",recursive = TRUE, full.names = TRUE)))
 ##################### EEZ DATA
 
 
@@ -120,7 +121,7 @@ lifehistory = read_feather(list.files(pattern = "lifehistory_parameters.feather"
 
 
 ##################### DATA POINTS PER HIGH RES GRID CELL
-contours = readRDS(list.files(pattern = "contours.RDS",recursive = TRUE))
+contours =  ms_simplify(readRDS(list.files(pattern = "contours.RDS",recursive = TRUE)))
 #####################  DATA POINTS PER HIGH RES GRID CELL
 
 
@@ -136,7 +137,7 @@ institutions <- compose(x = institutions, j = 2, value = as_paragraph( hyperlink
 
 
 ##################### MPA DATA
-shapefile_data_simple = readRDS(list.files(pattern = "shapefile_data_simple.RDS",recursive = TRUE))
+shapefile_data_simple =  ms_simplify(readRDS(list.files(pattern = "shapefile_data_simple.RDS",recursive = TRUE)))
 ##################### MPA DATA
 
 
@@ -182,11 +183,11 @@ expert_extent = left_join(overlap_shortened,expert_extent)
 
 ##################### leaflet map
 # zone type (test to speed up mapping)
-notake = readRDS(list.files(pattern ="notake.RDS",recursive = TRUE,full.names = TRUE))
-ccr = readRDS(list.files(pattern ="ccr.RDS",recursive = TRUE,full.names = TRUE))
-c = readRDS(list.files(pattern ="c.RDS",recursive = TRUE,full.names = TRUE))
-cpl =readRDS(list.files(pattern ="cpl.RDS",recursive = TRUE,full.names = TRUE))
-clp = readRDS(list.files(pattern ="clp.RDS",recursive = TRUE,full.names = TRUE))
+notake = ms_simplify(readRDS(list.files(pattern ="notake.RDS",recursive = TRUE,full.names = TRUE)))
+ccr = ms_simplify(readRDS(list.files(pattern ="ccr.RDS",recursive = TRUE,full.names = TRUE)))
+c =  ms_simplify(readRDS(list.files(pattern ="c.RDS",recursive = TRUE,full.names = TRUE)))
+cpl = ms_simplify(readRDS(list.files(pattern ="cpl.RDS",recursive = TRUE,full.names = TRUE)))
+clp =  ms_simplify(readRDS(list.files(pattern ="clp.RDS",recursive = TRUE,full.names = TRUE)))
 
 sa_map = leaflet() %>%
   addTiles()%>%
