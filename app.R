@@ -87,6 +87,8 @@ iucn_file_list = readRDS(list.files(pattern = "iucn_file_list.RDS",recursive = T
 
 ##################### add some info to overlap data
 species_overlapdata = read_feather(list.files(pattern = "species_overlapdata",recursive=TRUE,full.names=TRUE))
+# remove new_areas
+species_overlapdata = species_overlapdata[!str_detect(species_overlapdata$CUR_NME,"newarea"),]
 ##################### add some info to overlap data
 
 
@@ -139,6 +141,7 @@ institutions <- compose(x = institutions, j = 2, value = as_paragraph( hyperlink
 
 ##################### MPA DATA
 shapefile_data_simple =  ms_simplify(readRDS(list.files(pattern = "shapefile_data_simple.RDS",recursive = TRUE)))
+shapefile_data_no_geom <- st_drop_geometry(shapefile_data_simple)
 ##################### MPA DATA
 
 
@@ -163,6 +166,7 @@ table1 = master%>%
 
 ##################### list of species per map as well as their most recent sighing
 compiled_species_list = read_feather(list.files(pattern = "compiled_species_list.feather",recursive = TRUE, full.names = TRUE))
+compiled_species_list = compiled_species_list[!str_detect(compiled_species_list$CUR_NME,"newarea"),]
 ##################### list of species per map as well as their most recent sighing
 
 
@@ -307,7 +311,11 @@ ui <- fluidPage(
                            <br><br><b>Click at the top right corner of the map</b> and individually display the two major zonation types (No-take zones and Mixed-use zones).
                            <br><br> <b>Scroll down to the bottom of this page</b> to select individual MPAs for a detailed view of their zonation</b></h4>"),
                       h4(tags$b("Source of spatial information:")),
-                      a("South Africa Marine Protected Area Zonations (SAMPAZ_OR_2023_Q2), Department of Environmental Affairs",href ="https://egis.environment.gov.za/data_egis/data_download/current")
+                      HTML("<h5>You can download the latest MPA shapefile from the government website. Click on the link below and look for 'SAMPAZ: SA Marine Protected Area Zonations Data' in the 'Name of dataset' column<br></h5>"),
+                      a("South Africa Marine Protected Area Zonations (SAMPAZ_OR_2023_Q2), Department of Environmental Affairs",href ="https://egis.environment.gov.za/data_egis/data_download/current"),
+                      HTML("<h5>You can download the list of MPAs and their individual zonation (as they were in 2023) by clicking on the link below:<br></h5>"),
+                      downloadLink('downloadmpalist', 'Download an excel table of all MPAs and their zonation')
+                      
                ),
                column(9, align = "center", column(12, leafletOutput("mpas_sa",width = "80%", height = "50vh")
                                                  , actionButton("resetButton", "Reset Zoom")
@@ -315,6 +323,7 @@ ui <- fluidPage(
                
                )
              ),
+
              #######  FIRST ROW
              
              #######  SECOND ROW
@@ -409,9 +418,19 @@ ui <- fluidPage(
              fluidRow(
                column(12,
                       h4(""),
-                      HTML("<h4><b4> Below is a list of all 194 species found in South Africa.<br>The information used to create this table has come from different sources and is referenced at the bottom of the page.<br>For each species, information on its IUCN Red List status as well as endemic status is provided.</b></h4>")
+                      HTML("<h4><b4> Below is a list of all 194 species found in South Africa.<br>The information used to create this table has come from different sources and is referenced in the data tab.<br>For each species, information on its IUCN Red List status as well as endemic status is provided.<br><br>
+                           You can download an excel version of this table by clicking on the download button:</b></h4>"),
+                      downloadLink('downloadchondlist', 'Download list of South African sharks and rays')
                )),
              #######  FIRST ROW
+             
+             # break
+             fluidRow(column(12,h4(""))),
+             # explantory text
+             fluidRow(column(12,HTML("<h4>Use the <b>filters</b> to look at a subset of species based on Taxonomic grouping, Red List status and Endemic status.
+                                   <br>Use the <b>search bars</b> to directly search for a species by common or scientific name</h4>"))),
+             # break
+             fluidRow(column(12,h4(""))),
              
              #######  SECOND ROW
              fluidRow(
@@ -450,8 +469,8 @@ ui <- fluidPage(
              fluidRow(
                column(12,
                       h4(""),
-                      HTML("<h4>Use the dropdown below to get a list of species per Marine Protected Area.
-                      <br><br>The list is built by using <b>three</b> different sources of information to assess the presence of a species within the MPA:<br>1. Species Distribution Models<br>2. IUCN Red List Ranges<br>3. True occurrence records from verified research sources
+                      HTML("<h4>Use the dropdown below to get a list of shark and ray species per Marine Protected Area.
+                      <br><br>The list is built by using <b>three</b> different sources of information to assess the presence of a species within the MPA:<br>1. Species Distribution Models (predicted presence)<br>2. IUCN Red List Ranges (predicted presence)<br>3. True presence records from verified datasets (references in Data tab)
                       <br><br> Rows highlighted in green are species with confirmed presences in the MPA. The most recent sighting as well as data source is provided
                       <br><br><b>IMPORTANT:</b> This does not represent a complete and comprehensive list of species for an MPA, but is rather meant to show the most recent (or provided) sighting information in a any particular MPA</h4>")
                       
@@ -626,6 +645,16 @@ server <- function(input, output,session) {
   })
   
   # FIRST TAB
+  # indiviudal mpa zonation download
+  output$downloadmpalist <- downloadHandler(
+    filename = function() {
+      paste('SA_MPA_zonation-2023_Q2.xlsx', sep='')
+    },
+    content = function(con) {
+      write.xlsx(shapefile_data_no_geom, con)
+    }
+  )
+  
   # this looks for the MPA outline
   output$individual_mpa_zones <- renderLeaflet({
     
@@ -651,6 +680,17 @@ server <- function(input, output,session) {
     
   })
   
+  # Capture the map click event and print the coordinates
+  observeEvent(input$individual_mpa_zones_click, {
+    click <- input$individual_mpa_zones_click
+    if (!is.null(click)) {
+      # Extract and print the coordinates
+      lat <- click$lat
+      lng <- click$lng
+    }
+  })
+ 
+  
   # FIRST TAB
   output$tabletest <- DT::renderDataTable(DT::datatable({
     shapefile_data_no_geom <- st_drop_geometry(shapefile_data_simple)
@@ -660,14 +700,13 @@ server <- function(input, output,session) {
       rename("Zone Type" = CUR_ZON_TY)%>%
       rename("Zone Code" = CUR_ZON_CD)%>%
       rename("Declaration date" = D_DCLAR)%>%
-      mutate(GIS_AREA = round(GIS_AREA,0))%>%
-      mutate(area_km2 = round(area_km2,0))%>%
+      mutate(GIS_AREA = round(GIS_AREA,1))%>%
+      mutate(area_km2 = round(area_km2,1))%>%
       rename("Area (Ha)" = GIS_AREA)%>%
       rename("Area (Km2)" = area_km2)%>%
       dplyr::select(-CUR_NME)
     
   }))
-  
   
   # SECOND TAB
   # master table of species
@@ -691,6 +730,16 @@ server <- function(input, output,session) {
       )
     
   })
+  
+  # list of shark and ray statuses download
+   output$downloadchondlist <- downloadHandler(
+     filename = function() {
+       paste('SA_sharks-rays-RedListstatus.xlsx', sep='')
+     },
+     content = function(con) {
+       write.xlsx(table1, con)
+     }
+   )
   
   # Species spatial information tab
   # Create a reactive that dynamically changes the illustration source
